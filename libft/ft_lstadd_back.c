@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_stack **lst, t_stack *new)
 {
 	if (!*lst)
 	{
@@ -19,6 +19,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		return ;
 	}
 	while ((*lst)->next)
-		lst = &(*lst)->next;
+		lst = (t_stack **)&(*lst)->next;
 	(*lst)->next = new;
 }

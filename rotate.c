@@ -20,29 +20,29 @@ t_stack *lstlast(t_stack *lst)
 	return (lst);
 }
 
-void ra(t_stack *a)
+void ra(t_stack **a)
 {
 	t_stack	*tmp;
 
-	tmp = lstlast(a);
-	tmp->next = a;
-	tmp = a->next;
-	a->next = 0;
-	a = tmp;
+	tmp = lstlast(*a);
+	tmp->next = *a;
+	tmp = (*a)->next;
+	(*a)->next = 0;
+	*a = tmp;
 }
 
-void rb(t_stack *b)
+void rb(t_stack **b)
 {
 	t_stack	*tmp;
 
-	tmp = lstlast(b);
-	tmp->next = b;
-	tmp = b->next;
-	b->next = 0;
-	b = tmp;
+	tmp = lstlast(*b);
+	tmp->next = *b;
+	tmp = (*b)->next;
+	(*b)->next = 0;
+	*b = tmp;
 }
 
-void rr(t_stack *a, t_stack *b)
+void rr(t_stack **a, t_stack **b)
 {
 	ra(a);
 	rb(b);

@@ -12,9 +12,9 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_stack **lst, void (*del)(int))
 {
-	t_list	*later;
+	t_stack	*later;
 
 	while (*lst)
 	{

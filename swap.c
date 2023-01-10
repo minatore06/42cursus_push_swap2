@@ -11,29 +11,31 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void sa(t_stack *a)
+void sa(t_stack **a)
 {
 	t_stack	*tmp;
 
-	if (!a || !a->next)
+	if (!*a || !(*a)->next)
 		return ;
-	tmp = a;
-	a = a->next;
-	a->next = tmp;
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = (*a)->next;
+	(*a)->next = tmp;
 }
 
-void sb(t_stack *b)
+void sb(t_stack **b)
 {
 	t_stack	*tmp;
 
-	if (!b || !b->next)
+	if (!*b || !(*b)->next)
 		return ;
-	tmp = b;
-	b = b->next;
-	b->next = tmp;
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = (*b)->next;
+	(*b)->next = tmp;
 }
 
-void ss(t_stack *a, t_stack *b)
+void ss(t_stack **a, t_stack **b)
 {
 	sa(a);
 	sb(b);

@@ -20,27 +20,27 @@ t_stack *bfrthis(t_stack *lst, t_stack *this)
 	return (lst);
 }
 
-void rra(t_stack *a)
+void rra(t_stack **a)
 {
 	t_stack	*tmp;
 
-	tmp = lstlast(a);
-	tmp->next = a;
-	a = tmp;
-	bfrthis(a, tmp)->next = 0;
+	tmp = lstlast(*a);
+	tmp->next = *a;
+	*a = tmp;
+	bfrthis(*a, tmp)->next = 0;
 }
 
-void rrb(t_stack *b)
+void rrb(t_stack **b)
 {
 	t_stack	*tmp;
 
-	tmp = lstlast(b);
-	tmp->next = b;
-	b = tmp;
-	bfrthis(b, tmp)->next = 0;
+	tmp = lstlast(*b);
+	tmp->next = *b;
+	*b = tmp;
+	bfrthis(*b, tmp)->next = 0;
 }
 
-void rrr(t_stack *a, t_stack *b)
+void rrr(t_stack **a, t_stack **b)
 {
 	rra(a);
 	rrb(b);

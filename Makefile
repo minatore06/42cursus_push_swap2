@@ -3,7 +3,7 @@ CFLAGS=-Wall -Wextra -Werror
 NAME=push_swap.a
 OUT=push_swap.out
 
-FILES=push_swap.c push.c swap.c rotate.c r_rotate.c
+FILES=push.c swap.c rotate.c r_rotate.c
 OBJECTS=$(FILES:.c=.o)
 
 LIBFT=libft/
@@ -12,7 +12,7 @@ LIBFTNAME=libft.a
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(MAKE) -C $(LIBFT)
+	$(MAKE) bonus -C $(LIBFT)
 	mv $(LIBFT)$(LIBFTNAME) $(NAME)
 	ar rcs $(NAME) $(OBJECTS)
 

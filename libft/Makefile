@@ -29,7 +29,7 @@ fclean: clean
 re:	fclean $(NAME)
 
 bonus: $(OBJECTS) $(BONUS_OBJECTS)
-	$(MAKE) bonus -C $(PRINTF)
+	$(MAKE) -C $(PRINTF)
 	mv $(PRINTF)$(PRINTFNAME) $(NAME)
 	ar rcs $(NAME) $(OBJECTS) $(BONUS_OBJECTS)
 
