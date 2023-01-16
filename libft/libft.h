@@ -53,6 +53,7 @@ typedef struct s_stack
 {
 	int	x;
 	void	*next;
+	int	right;
 }	t_stack;
 
 int		ft_lstsize(t_stack *lst);

@@ -40,81 +40,28 @@ t_stack *manage_input(char **argv)
 
 int	main(int argc, char *argv[])
 {
-	t_stack *A;
+	t_ez_stack A;
 	t_stack *B;
 	t_stack *out;
 
 	if (argc < 2)
 		return (0);
-	A = manage_input(argv);
+	A.head = manage_input(argv);
+	A.start = A.head;
 	B = 0;
 
-	out = A;
-	while (out)
-	{
-		ft_printf("A: %d\n", out->x);
-		out = out->next;
-	}
 	out = B;
 	while (out)
 	{
 		ft_printf("B: %d\n", out->x);
 		out = out->next;
 	}
-	pb(&A, &B);
-	pb(&A, &B);
-	pb(&A, &B);
-	pa(&A, &B);
-	out = A;
-	while (out)
+	ft_printf("Pivot: %d\n", get_pivot(A.start)->x);
+	put_first(&A.head, get_pivot(A.start));
+	while (A.head)
 	{
-		ft_printf("A: %d\n", out->x);
-		out = out->next;
-	}
-	out = B;
-	while (out)
-	{
-		ft_printf("B: %d\n", out->x);
-		out = out->next;
-	}
-	ss(&A, &B);
-	out = A;
-	while (out)
-	{
-		ft_printf("A: %d\n", out->x);
-		out = out->next;
-	}
-	out = B;
-	while (out)
-	{
-		ft_printf("B: %d\n", out->x);
-		out = out->next;
-	}
-	rr(&A, &B);
-	out = A;
-	while (out)
-	{
-		ft_printf("A: %d\n", out->x);
-		out = out->next;
-	}
-	out = B;
-	while (out)
-	{
-		ft_printf("B: %d\n", out->x);
-		out = out->next;
-	}
-	rrr(&A, &B);
-	out = A;
-	while (out)
-	{
-		ft_printf("A: %d\n", out->x);
-		out = out->next;
-	}
-	out = B;
-	while (out)
-	{
-		ft_printf("B: %d\n", out->x);
-		out = out->next;
+		ft_printf("A: %d\n", A.head->x);
+		A.head = A.head->next;
 	}
 	return (0);
 }
