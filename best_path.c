@@ -48,4 +48,5 @@ void    put_first(t_stack **stack, t_stack *el)
     else
         while (x++ < ft_lstsize(*stack))
             rra(stack);
+    return (x);
 }

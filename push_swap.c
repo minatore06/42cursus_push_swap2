@@ -38,30 +38,47 @@ t_stack *manage_input(char **argv)
 	return (input);
 }
 
+void	move_to_b(t_stack **A, t_stack **B, t_stack *el)
+{
+	int	x;
+	put_first(A, el);
+	pb(A, B);
+	return (x);
+}
+
+void	swap2el(t_ez_stack A, t_stack **B, t_stack *el1, t_stack *el2)
+{
+	int	pos1;
+	int	pos2;
+	int	dis;
+
+	pos1 = lstposition(A.head, el1);
+	pos2 = lstposition(A.head, el2);
+	move_to_b(A.head, B, el1);
+	move_to_b(A.head, B, el2);
+	sb(B, 1);
+	pa(A.head, B);
+	if (ft_lstsize(A.head) - pos2 + pos1)
+	while (pos2 - pos1)
+	{
+		ra(A.head, 1);
+		pos2--;
+	}
+	pa(A.head, B);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_ez_stack A;
 	t_stack *B;
-	t_stack *out;
+	t_stack *pivot;
 
 	if (argc < 2)
 		return (0);
 	A.head = manage_input(argv);
 	A.start = A.head;
 	B = 0;
-
-	out = B;
-	while (out)
-	{
-		ft_printf("B: %d\n", out->x);
-		out = out->next;
-	}
-	ft_printf("Pivot: %d\n", get_pivot(A.start)->x);
-	put_first(&A.head, get_pivot(A.start));
-	while (A.head)
-	{
-		ft_printf("A: %d\n", A.head->x);
-		A.head = A.head->next;
-	}
+	pivot = get_pivot(A.start);
+	move_to_b(&A.head, &B, pivot);
 	return (0);
 }
