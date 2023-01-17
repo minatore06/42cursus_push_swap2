@@ -29,14 +29,14 @@ int     lstposition(t_stack *head, t_stack *el);
 void    put_first(t_stack **stack, t_stack *el);
 void    pa(t_stack **a, t_stack **b);
 void    pb(t_stack **a, t_stack **b);
-void    sa(t_stack **a);
-void    sb(t_stack **b);
+void    sa(t_stack **a, int verbose);
+void    sb(t_stack **b, int verbose);
 void    ss(t_stack **a, t_stack **b);
-void    ra(t_stack **a);
-void    rb(t_stack **b);
+void    ra(t_stack **a, int verbose);
+void    rb(t_stack **b, int verbose);
 void    rr(t_stack **a, t_stack **b);
-void    rra(t_stack **a);
-void    rrb(t_stack **b);
+void    rra(t_stack **a, int verbose);
+void    rrb(t_stack **b, int verbose);
 void    rrr(t_stack **a, t_stack **b);
 
 #endif

@@ -20,7 +20,7 @@ t_stack *lstlast(t_stack *lst)
 	return (lst);
 }
 
-void ra(t_stack **a)
+void ra(t_stack **a, int verbose)
 {
 	t_stack	*tmp;
 
@@ -29,9 +29,11 @@ void ra(t_stack **a)
 	tmp = (*a)->next;
 	(*a)->next = 0;
 	*a = tmp;
+	if (verbose)
+		write(1, "ra\n", 3);
 }
 
-void rb(t_stack **b)
+void rb(t_stack **b, int verbose)
 {
 	t_stack	*tmp;
 
@@ -40,10 +42,13 @@ void rb(t_stack **b)
 	tmp = (*b)->next;
 	(*b)->next = 0;
 	*b = tmp;
+	if (verbose)
+		write(1, "rb\n", 3);
 }
 
 void rr(t_stack **a, t_stack **b)
 {
-	ra(a);
-	rb(b);
+	ra(a, 0);
+	rb(b, 0);
+	write(1, "rr\n", 3);
 }

@@ -20,7 +20,7 @@ t_stack *bfrthis(t_stack *lst, t_stack *this)
 	return (lst);
 }
 
-void rra(t_stack **a)
+void rra(t_stack **a, int verbose)
 {
 	t_stack	*tmp;
 
@@ -28,9 +28,11 @@ void rra(t_stack **a)
 	tmp->next = *a;
 	*a = tmp;
 	bfrthis(*a, tmp)->next = 0;
+	if (verbose)
+		write(1, "rra\n", 4);
 }
 
-void rrb(t_stack **b)
+void rrb(t_stack **b, int verbose)
 {
 	t_stack	*tmp;
 
@@ -38,10 +40,13 @@ void rrb(t_stack **b)
 	tmp->next = *b;
 	*b = tmp;
 	bfrthis(*b, tmp)->next = 0;
+	if (verbose)
+		write(1, "rrb\n", 4);
 }
 
 void rrr(t_stack **a, t_stack **b)
 {
-	rra(a);
-	rrb(b);
+	rra(a, 0);
+	rrb(b, 0);
+	write(1, "rrr\n", 4);
 }
