@@ -40,31 +40,54 @@ t_stack *manage_input(char **argv)
 
 void	move_to_b(t_stack **A, t_stack **B, t_stack *el)
 {
-	int	x;
 	put_first(A, el);
 	pb(A, B);
-	return (x);
 }
 
 void	swap2el(t_ez_stack A, t_stack **B, t_stack *el1, t_stack *el2)
 {
 	int	pos1;
 	int	pos2;
-	int	dis;
 
 	pos1 = lstposition(A.head, el1);
 	pos2 = lstposition(A.head, el2);
-	move_to_b(A.head, B, el1);
-	move_to_b(A.head, B, el2);
+	move_to_b(&A.head, B, el1);
+	move_to_b(&A.head, B, el2);
 	sb(B, 1);
-	pa(A.head, B);
-	if (ft_lstsize(A.head) - pos2 + pos1)
-	while (pos2 - pos1)
+	pa(&A.head, B);
+	if (pos2 - pos1 < ft_lstsize(A.start) - pos2 + pos1)
+		while (pos2 - pos1)
+		{
+			ra(&A.head, 1);
+			pos2--;
+		}
+	else 
+		while (ft_lstsize(A.start) - pos2 + pos1)
+		{
+			rra(&A.head, 1);
+			pos2++;
+		}
+	pa(&A.head, B);
+}
+
+t_stack	*get_first_bigger(t_stack *A, int pivot)
+{
+	t_stack	*big;
+	int		size;
+
+	size = ft_lstsize(A);
+	big = A;
+	while (size--)
 	{
-		ra(A.head, 1);
-		pos2--;
+		if (A->x > big->x && !A->right)
+			big = A;
 	}
-	pa(A.head, B);
+	return (big);
+}
+
+t_stack	*get_last_smaller(t_stack *A, int pivot)
+{
+
 }
 
 int	main(int argc, char *argv[])
@@ -79,6 +102,7 @@ int	main(int argc, char *argv[])
 	A.start = A.head;
 	B = 0;
 	pivot = get_pivot(A.start);
+	//ft_printf("size: %d, el: %d",ft_lstsize(A.head), lstposition(A.head, pivot));
 	move_to_b(&A.head, &B, pivot);
 	return (0);
 }

@@ -18,7 +18,7 @@ int lstposition(t_stack *head, t_stack *el)
     x = 0;
     while (head != el)
     {
-        ft_printf("%p ~ %p\n", head, el);
+        //ft_printf("%p ~ %p\n", head, el);
         head = head->next;
         x++;
     }
@@ -43,10 +43,9 @@ void    put_first(t_stack **stack, t_stack *el)
     if (to_get_first(*stack, el) > 0)
     {
         while (x--)
-            ra(stack);
+            ra(stack, 1);
     }
     else
         while (x++ < ft_lstsize(*stack))
-            rra(stack);
-    return (x);
+            rra(stack, 1);
 }
