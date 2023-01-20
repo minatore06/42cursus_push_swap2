@@ -20,6 +20,7 @@ t_stack	*ft_lstnew(int content)
 	if (node)
 	{
 		node->x = content;
+		node->right = 0;
 		node->next = 0;
 	}
 	return (node);
