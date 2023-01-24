@@ -11,31 +11,31 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-t_stack    *get_pivot(t_stack *start)
+t_stack    *get_pivot(t_stack *first, t_stack *last)
 {
     t_stack *pivot;
     int     i;
 
-    i = ft_lstsize(start) / 2;
-    pivot = start;
+    i = ft_lstsize(first) / 2;
+    pivot = first;
     while (i > 0)
     {
         pivot = pivot->next;
         i--;
     }
-    if (pivot->x > start->x)
+    if (pivot->x > first->x)
     {
-        if (pivot->x < ft_lstlast(start)->x)
+        if (pivot->x < last->x)
             return (pivot);
-        else if (start->x < ft_lstlast(start)->x)
-            return (ft_lstlast(start));
+        else if (first->x < last->x)
+            return (last);
         else
-            return (start);
+            return (first);
     }
-    else if (pivot->x > ft_lstlast(start)->x)
+    else if (pivot->x > last->x)
             return (pivot);
-    else if (start->x > ft_lstlast(start)->x)
-        return (ft_lstlast(start));
+    else if (first->x > last->x)
+        return (last);
     else
-        return (start);
+        return (first);
 }
