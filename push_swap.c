@@ -54,18 +54,24 @@ void	move_to_b(t_stack **A, t_stack **B, t_stack *el)
 	pb(A, B);
 }
 
-void	swap2el(t_ez_stack A, t_stack **B, t_stack *el1, t_stack *el2)
+void	swap2el(t_stack **A, t_stack **B, t_stack *el1, t_stack *el2)
 {
 	t_stack	*go_first;
 
-	move_to_b(&A.head, B, el1);
-	go_first = A.head;
-	move_to_b(&A.head, B, el2);
-	//print_stack(A.head);
+	if (el1->next == el2)
+	{
+		put_first(A, el1);
+		sa(A, 1);
+		return;
+	}
+	move_to_b(A, B, el1);
+	go_first = *A;
+	move_to_b(A, B, el2);
+	print_stack(*A);
 	sb(B, 1);
-	pa(&A.head, B);
-	put_first(&A.head, go_first);
-	pa(&A.head, B);
+	pa(A, B);
+	put_first(A, go_first);
+	pa(A, B);
 	//print_stack(A.head);
 }
 
@@ -76,6 +82,7 @@ t_stack	*get_first_bigger(t_stack *A, int pivot)
 	size = ft_lstsize(A);
 	while (size--)
 	{
+		ft_printf("%d\n", A->x);
 		if (A->x > pivot && !A->right)
 			return (A);
 		A = A->next;
@@ -103,21 +110,46 @@ t_stack	*get_last_smaller(t_stack *A, int pivot)
 	return (0);
 }
 
+t_stack	*get_smaller(t_stack *A)
+{
+	t_stack	*min;
+
+	min = A;
+	while (A)
+	{
+		if (A->x < min->x)
+			min = A;
+		A = A->next;
+	}
+	return (min);
+}
+
+void	sort(t_stack **A, t_stack **B, t_stack *start)
+{
+	t_stack *pivot;
+	t_stack	*left_big;
+	t_stack	*right_small;
+
+	pivot = get_pivot(*A);
+	ft_printf("size: %d, el: %d\n",ft_lstsize(*A), pivot->x);
+	move_to_b(A, &B, pivot);
+	put_first(A, start);
+	swap2el(A, B, get_first_bigger(*A, pivot->x), get_last_smaller(*A, pivot->x));
+	
+}
+
 int	main(int argc, char *argv[])
 {
 	t_ez_stack A;
 	t_stack *B;
-	t_stack *pivot;
 
 	if (argc < 2)
 		return (0);
 	A.head = manage_input(argv);
-	A.start = A.head;
+	A.start = get_smaller(A.head);
+	put_first(&A.head, A.start);
 	B = 0;
-	pivot = get_pivot(A.start);
-	//ft_printf("size: %d, el: %d",ft_lstsize(A.head), lstposition(A.head, pivot));
-	move_to_b(&A.head, &B, pivot);
-	swap2el(A, &B, get_first_bigger(A.head, pivot->x), get_last_smaller(A.head, pivot->x));
-	print_stack(A.head);//perche' qua c'e' meta' roba?
+	sort(&A.head, &B, A.start);
+	print_stack(A.head);
 	return (0);
 }
