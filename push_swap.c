@@ -139,7 +139,7 @@ int	left_is_right(t_stack *big, t_stack *small)
 
 void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 {
-	t_stack *pivot
+	t_stack *pivot;
 	t_stack	*big_left;
 	t_stack	*small_right;
 
@@ -159,32 +159,34 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	swap2el(&A->head, B, pivot, big_left);
 	put_first(&A->head, A->start);
 	pivot->right = 1;
-	if ( == 2)
+	if (lstposition(A->head, pivot) - lstposition(A->head, first) == 2)
 	{
-		if (pivot->next->x > pivot->next->next->x)
-			swap2el(&A->head, B, pivot->next, pivot->next->next);
+		pivot = pivot->next;
+		if (pivot->x > ((t_stack *)pivot->next)->x)
+			swap2el(&A->head, B, pivot, pivot->next);
 		else
 		{
-			pivot->next->right = 1;
-			pivot->next->next->right = 1;
+			pivot->right = 1;
+			((t_stack *)pivot->next)->right = 1;
 		}
 	}
-	else if ( == 1)
-		pivot->next->right = 1;
+	else if (lstposition(A->head, pivot) - lstposition(A->head, first) == 1)
+		((t_stack *)pivot->next)->right = 1;
 	else
-		sort(A, B, first, bfrthis(A.head, pivot));
-	if ( == 2)
+		sort(A, B, first, bfrthis(A->head, pivot));
+	if (lstposition(A->head, last) - lstposition(A->head, pivot) == 2)
 	{
-		if (pivot->next->x > pivot->next->next->x)
-			swap2el(&A->head, B, pivot->next, pivot->next->next);
+		pivot = pivot->next;
+		if (pivot->x > ((t_stack *)pivot->next)->x)
+			swap2el(&A->head, B, pivot, pivot->next);
 		else
 		{
-			pivot->next->right = 1;
-			pivot->next->next->right = 1;
+			pivot->right = 1;
+			((t_stack *)pivot->next)->right = 1;
 		}
 	}
-	else if ( == 1)
-		pivot->next->right = 1;
+	else if (lstposition(A->head, last) - lstposition(A->head, pivot) == 1)
+		((t_stack *)pivot->next)->right = 1;
 	else
 		sort(A, B, pivot->next, last);
 }
@@ -200,7 +202,7 @@ int	main(int argc, char *argv[])
 	A.start = get_smaller(A.head);
 	put_first(&A.head, A.start);
 	B = 0;
-	sort(&A.head, &B, A.start, ft_lstlast(A.start));
+	sort(&A, &B, A.start, ft_lstlast(A.start));
 	print_stack(A.head);
 	return (0);
 }
