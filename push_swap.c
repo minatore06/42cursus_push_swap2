@@ -64,9 +64,27 @@ void	swap2el(t_stack **A, t_stack **B, t_stack *el1, t_stack *el2)
 		sa(A, 1);
 		return;
 	}
-	if (el1 != *B)
-		move_to_b(A, B, el1);
-	go_first = *A;
+	go_first = el1->next;
+	move_to_b(A, B, el1);
+	move_to_b(A, B, el2);
+	//print_stack(*A);
+	sb(B, 1);
+	pa(A, B);
+	put_first(A, go_first);
+	pa(A, B);
+	//print_stack(A.head);
+}
+
+void	swap_pivot(t_stack **A, t_stack **B, t_stack *last, t_stack *el2)
+{
+	t_stack	*go_first;
+
+	go_first = last->next;
+	if (!go_first)
+	{
+		ft_printf("sos\n");
+		go_first = *A;
+	}
 	move_to_b(A, B, el2);
 	//print_stack(*A);
 	sb(B, 1);
@@ -83,7 +101,7 @@ t_stack	*get_first_bigger(t_stack *A, int pivot)
 	size = ft_lstsize(A);
 	while (size--)
 	{
-		ft_printf("%d\n", A->x);
+		//ft_printf("%d\n", A->x);
 		if (A->x > pivot && !A->right)
 			return (A);
 		A = A->next;
@@ -127,7 +145,7 @@ t_stack	*get_smaller(t_stack *A)
 
 int	left_is_right(t_stack *big, t_stack *small)
 {
-		ft_printf("small: %p, big: %p\n", small, big);
+		//ft_printf("small: %p, big: %p\n", small, big);
 	while (small)
 	{
 		if (small == big)
@@ -137,14 +155,32 @@ int	left_is_right(t_stack *big, t_stack *small)
 	return (0);
 }
 
+int	is_order(t_stack *A)
+{
+	int	old;
+
+	old = A->x;
+	A = A->next;
+	while (A)
+	{
+		if (old > A->x)
+			return (0);
+		old = A->x;
+		A = A->next;
+	}
+	return (1);
+}
+
 void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 {
 	t_stack *pivot;
 	t_stack	*big_left;
 	t_stack	*small_right;
 
+	if (is_order(A->head))
+		return ;
 	pivot = get_pivot(first, last);
-	ft_printf("size: %d, el: %d\n",ft_lstsize(A->head), pivot->x);
+	//ft_printf("size: %d, el: %d\n",ft_lstsize(A->head), pivot->x);
 	move_to_b(&A->head, B, pivot);
 	while (1)
 	{
@@ -156,9 +192,11 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		else
 			swap2el(&A->head, B, big_left, small_right);
 	}
-	swap2el(&A->head, B, pivot, big_left);
+	swap_pivot(&A->head, B, last, big_left);
 	put_first(&A->head, A->start);
 	pivot->right = 1;
+ 	if (is_order(A->head))
+		return ;
 	if (lstposition(A->head, pivot) - lstposition(A->head, first) == 2)
 	{
 		pivot = pivot->next;
@@ -174,6 +212,8 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		((t_stack *)pivot->next)->right = 1;
 	else
 		sort(A, B, first, bfrthis(A->head, pivot));
+ 	if (is_order(A->head))
+		return ;
 	if (lstposition(A->head, last) - lstposition(A->head, pivot) == 2)
 	{
 		pivot = pivot->next;
@@ -201,8 +241,10 @@ int	main(int argc, char *argv[])
 	A.head = manage_input(argv);
 	A.start = get_smaller(A.head);
 	put_first(&A.head, A.start);
-	B = 0;
+	B = 0;	
+/* 	if (is_order(A))
+		return ; */
 	sort(&A, &B, A.start, ft_lstlast(A.start));
-	print_stack(A.head);
+	//print_stack(A.head);
 	return (0);
 }
