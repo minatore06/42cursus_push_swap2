@@ -80,9 +80,11 @@ void	swap_pivot(t_stack **A, t_stack **B, t_stack *last, t_stack *el2)
 	t_stack	*go_first;
 
 	go_first = last->next;
+	if (go_first == el2)
+		go_first = el2->next;
 	if (!go_first)
 	{
-		ft_printf("sos\n");
+		//ft_printf("sos\n");
 		go_first = *A;
 	}
 	move_to_b(A, B, el2);
@@ -155,18 +157,18 @@ int	left_is_right(t_stack *big, t_stack *small)
 	return (0);
 }
 
-int	is_order(t_stack *A)
+int	is_order(t_stack *start, t_stack *end)
 {
 	int	old;
 
-	old = A->x;
-	A = A->next;
-	while (A)
+	old = start->x;
+	start = start->next;
+	while (start != end)
 	{
-		if (old > A->x)
+		if (old > start->x)
 			return (0);
-		old = A->x;
-		A = A->next;
+		old = start->x;
+		start = start->next;
 	}
 	return (1);
 }
@@ -177,10 +179,10 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	t_stack	*big_left;
 	t_stack	*small_right;
 
-	if (is_order(A->head))
+	if (is_order(first, last))
 		return ;
 	pivot = get_pivot(first, bfrthis(A->head, last));
-	ft_printf("size: %d, str: %d pvt: %d lst: %d\n",ft_lstsize(A->head), first->x, pivot->x, bfrthis(A->head, last)->x);
+	//ft_printf("size: %d, str: %d pvt: %d lst: %d\n",ft_lstsize(A->head), first->x, pivot->x, bfrthis(A->head, last)->x);
 	move_to_b(&A->head, B, pivot);
 	while (1)
 	{
@@ -192,15 +194,13 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		else
 			swap2el(&A->head, B, big_left, small_right);
 	}
-	ft_printf("MEGA\n");
+	//ft_printf("MEGA\n");
 	swap_pivot(&A->head, B, bfrthis(A->head, last), big_left);
 	put_first(&A->head, A->start);
 	pivot->right = 1;
- 	if (is_order(A->head))
-		return ;
 	if (lstposition(A->head, pivot) - lstposition(A->head, first) == 2)
 	{
-		ft_printf("21\n");
+		//ft_printf("21\n");
 		small_right = bfrthis(A->head, pivot);
 		if (bfrthis(A->head, small_right)->x > small_right->x)
 			swap2el(&A->head, B, bfrthis(A->head, small_right), small_right);
@@ -211,16 +211,14 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		}
 	}
 	else if (lstposition(A->head, pivot) - lstposition(A->head, first) == 1){
-		ft_printf("?\n");
+		//ft_printf("?\n");
 		bfrthis(A->head, pivot)->right = 1;}
 	else{
-		ft_printf("REDO1\n");
+		//ft_printf("REDO1\n");
 		sort(A, B, first, bfrthis(A->head, pivot));}
- 	if (is_order(A->head))
-		return ;
 	if (lstposition(A->head, bfrthis(A->head, last)) - lstposition(A->head, pivot) == 2)
 	{
-		ft_printf("22\n");
+		//ft_printf("22\n");
 		pivot = pivot->next;
 		if (pivot->x > ((t_stack *)pivot->next)->x)
 			swap2el(&A->head, B, pivot, pivot->next);
@@ -232,12 +230,12 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	}
 	else if (lstposition(A->head, bfrthis(A->head, last)) - lstposition(A->head, pivot) == 1)
 	{
-		ft_printf("???\n");
+		//ft_printf("???\n");
 		((t_stack *)pivot->next)->right = 1;
 	}
 	else
 	{
-		ft_printf("REDO2 %d\n", pivot->x);
+		//ft_printf("REDO2 %d\n", pivot->x);
 		sort(A, B, pivot->next, last);
 	}
 }
@@ -257,5 +255,6 @@ int	main(int argc, char *argv[])
 		return ; */
 	sort(&A, &B, A.start, NULL);
 	//print_stack(A.head);
+	put_first(&A.head, A.start);
 	return (0);
 }
