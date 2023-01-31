@@ -16,13 +16,14 @@ t_stack    *get_pivot(t_stack *first, t_stack *last)
     t_stack *pivot;
     int     i;
 
-    i = ft_lstsize(first) / 2;
+    i = (ft_lstsize(first) - ft_lstsize(last) + 1) / 2;
     pivot = first;
     while (i > 0)
     {
         pivot = pivot->next;
         i--;
     }
+    //ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
     if (pivot->x > first->x)
     {
         if (pivot->x < last->x)

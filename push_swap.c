@@ -15,10 +15,10 @@ void	print_stack(t_stack *s)
 {
 	while (s)
 	{
-		ft_printf("A: %d | ", s->x);
+		//ft_printf("A: %d | ", s->x);
 		s = s->next;
 	}
-	ft_printf("\n");
+	//ft_printf("\n");
 }
 
 t_stack *manage_input(char **argv)
@@ -84,7 +84,7 @@ void	swap_pivot(t_stack **A, t_stack **B, t_stack *last, t_stack *el2)
 		go_first = el2->next;
 	if (!go_first)
 	{
-		//ft_printf("sos\n");
+		////ft_printf("sos\n");
 		go_first = *A;
 	}
 	move_to_b(A, B, el2);
@@ -103,7 +103,7 @@ t_stack	*get_first_bigger(t_stack *A, int pivot)
 	size = ft_lstsize(A);
 	while (size--)
 	{
-		//ft_printf("%d\n", A->x);
+		////ft_printf("%d\n", A->x);
 		if (A->x > pivot && !A->right)
 			return (A);
 		A = A->next;
@@ -147,7 +147,7 @@ t_stack	*get_smaller(t_stack *A)
 
 int	left_is_right(t_stack *big, t_stack *small)
 {
-		//ft_printf("small: %p, big: %p\n", small, big);
+		////ft_printf("small: %p, big: %p\n", small, big);
 	while (small)
 	{
 		if (small == big)
@@ -165,6 +165,7 @@ int	is_order(t_stack *start, t_stack *end)
 	start = start->next;
 	while (start != end)
 	{
+		//ft_printf("hello\n");
 		if (old > start->x)
 			return (0);
 		old = start->x;
@@ -178,11 +179,17 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	t_stack *pivot;
 	t_stack	*big_left;
 	t_stack	*small_right;
-
+//IF PIVOT SWAPS WITH FIRST OR LAST
+	if (first)
+		//ft_printf("first %d\n", first->x);
+	if (last)
+		//ft_printf("last %d\n", last->x);
+	if (first == last)
+		return ;
 	if (is_order(first, last))
 		return ;
 	pivot = get_pivot(first, bfrthis(A->head, last));
-	//ft_printf("size: %d, str: %d pvt: %d lst: %d\n",ft_lstsize(A->head), first->x, pivot->x, bfrthis(A->head, last)->x);
+	//ft_printf("size: %d\n",ft_lstsize(A->head));
 	move_to_b(&A->head, B, pivot);
 	while (1)
 	{
@@ -193,7 +200,11 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 			break;
 		else
 			swap2el(&A->head, B, big_left, small_right);
+		if (big_left == first)
+			first = small_right;
 	}
+	if (big_left == first)
+		first = pivot->next;
 	//ft_printf("MEGA\n");
 	swap_pivot(&A->head, B, bfrthis(A->head, last), big_left);
 	put_first(&A->head, A->start);
@@ -214,8 +225,8 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		//ft_printf("?\n");
 		bfrthis(A->head, pivot)->right = 1;}
 	else{
-		//ft_printf("REDO1\n");
-		sort(A, B, first, bfrthis(A->head, pivot));}
+		//ft_printf("REDO1 %d\n", pivot->x);
+		sort(A, B, first, pivot);}
 	if (lstposition(A->head, bfrthis(A->head, last)) - lstposition(A->head, pivot) == 2)
 	{
 		//ft_printf("22\n");
