@@ -180,9 +180,9 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	t_stack	*big_left;
 	t_stack	*small_right;
 //IF PIVOT SWAPS WITH FIRST OR LAST
-	if (first)
+	//if (first)
 		//ft_printf("first %d\n", first->x);
-	if (last)
+	//if (last)
 		//ft_printf("last %d\n", last->x);
 	if (first == last)
 		return ;
