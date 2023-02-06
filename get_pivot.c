@@ -23,7 +23,7 @@ t_stack    *get_pivot(t_stack *first, t_stack *last)
         pivot = pivot->next;
         i--;
     }
-    //ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
+    ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
     if (pivot->x > first->x)
     {
         if (pivot->x < last->x)
