@@ -11,16 +11,19 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-t_stack    *get_pivot(t_stack *first, t_stack *last)
+t_stack    *get_pivot(t_stack *lst, t_stack *first, t_stack *last)
 {
     t_stack *pivot;
     int     i;
-
+//calcolare la size  tra first e last anche se last si trova prima di first
     i = (ft_lstsize(first) - ft_lstsize(last) + 1) / 2;
     pivot = first;
     while (i > 0)
     {
-        pivot = pivot->next;
+        if (pivot->next)
+            pivot = pivot->next;
+        else
+            pivot = lst;
         i--;
     }
     ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);

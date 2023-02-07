@@ -15,6 +15,8 @@ t_stack *bfrthis(t_stack *lst, t_stack *this)
 {
 	if (!lst)
 		return (lst);
+	if (this == lst)
+		return (ft_lstlast(lst));
 	while (lst->next != this)
 		lst = lst->next;
 	return (lst);

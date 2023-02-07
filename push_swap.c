@@ -191,12 +191,12 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	if (is_order(first, last))
 		return ;
 	ft_printf("bfr last %p\n", last);
-	pivot = get_pivot(first, bfrthis(A->start, last));
+	pivot = get_pivot(first, bfrthis(A->head, last));
 	ft_printf("size: %d, pivot %d\n",ft_lstsize(A->head), pivot->x);
 	if (pivot == first)
 		first = pivot->next;
 	if (pivot == last)
-		last = bfrthis(A->start, pivot);
+		last = bfrthis(A->head, pivot);
 	move_to_b(&A->head, B, pivot);
 	while (1)
 	{
@@ -271,7 +271,7 @@ int	main(int argc, char *argv[])
 	B = 0;	
 /* 	if (is_order(A))
 		return ; */
-	sort(&A, &B, A.start, NULL);
+	sort(&A, &B, A.start, A.start);
 	//print_stack(A.head);
 	put_first(&A.head, A.start);
 	return (0);
