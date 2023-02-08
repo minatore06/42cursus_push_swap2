@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-int lstposition(t_stack *head, t_stack *el)
+int lstposition(t_stack *lst, t_stack *el)
 {
-    int x;
+    int i;
 
-    x = 0;
-    while (head != el)
+    i = 0;
+    while (el != lst)
     {
-        //ft_printf("%p ~ %p\n", head, el);
-        head = head->next;
-        x++;
+        lst = lst->next;
+        i++;
     }
-    return (x);
+    return (i);
 }
 //1 up -1 down
 int to_get_first(t_stack *head, t_stack *el)

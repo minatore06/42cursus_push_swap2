@@ -157,7 +157,7 @@ int	left_is_right(t_stack *big, t_stack *small)
 	return (0);
 }
 
-int	is_order(t_stack *start, t_stack *end)
+int	is_order(t_stack *lst, t_stack *start, t_stack *end)
 {
 	int	old;
 
@@ -169,7 +169,10 @@ int	is_order(t_stack *start, t_stack *end)
 		if (old > start->x)
 			return (0);
 		old = start->x;
-		start = start->next;
+		if (start->next)
+			start = start->next;
+		else
+			start = lst;
 	}
 	return (1);
 }
@@ -179,19 +182,18 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	t_stack *pivot;
 	t_stack	*big_left;
 	t_stack	*small_right;
-//IF PIVOT SWAPS WITH FIRST OR LAST
-//IF PIVOT IS FIRST OR LAST
-	put_first(&A->head, A->start);
+//IF PIVOT SWAPS WITH FIRST OR LAST (risolto forse)
+//IF PIVOT IS FIRST OR LAST (risolto forse)
 	if (first)
 		ft_printf("first %d\n", first->x);
 	if (last)
-		ft_printf("last %d\n", last->x);
-	if (first == last)
+		ft_printf("last %d\n", bfrthis(A->head, last)->x);
+	if (first->next == last)
 		return ;
-	if (is_order(first, last))
+	if (is_order(A->head, first, last))
 		return ;
 	ft_printf("bfr last %p\n", last);
-	pivot = get_pivot(first, bfrthis(A->head, last));
+	pivot = get_pivot(A->head, first, bfrthis(A->head, last));
 	ft_printf("size: %d, pivot %d\n",ft_lstsize(A->head), pivot->x);
 	if (pivot == first)
 		first = pivot->next;
@@ -199,7 +201,7 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		last = bfrthis(A->head, pivot);
 	move_to_b(&A->head, B, pivot);
 	while (1)
-	{
+	{//rimuovere questo put_first
 		put_first(&A->head, A->start);
 		big_left = get_first_bigger(A->head, pivot->x);
 		small_right = get_last_smaller(A->head, pivot->x);
@@ -214,7 +216,7 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 		first = pivot->next;
 	ft_printf("MEGA\n");
 	swap_pivot(&A->head, B, bfrthis(A->head, last), big_left);
-	put_first(&A->head, A->start);
+	put_first(&A->head, A->start);//rimuovere questo
 	pivot->right = 1;
 	if (lstposition(A->head, pivot) - lstposition(A->head, first) == 2)
 	{
