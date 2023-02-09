@@ -15,7 +15,7 @@ int first_before_last(t_stack *first, t_stack *last)
 {
     while (first)
     {
-        if (first == last)
+        if (first == last)                         
             return (1);
         first = first->next;
     }
@@ -26,21 +26,15 @@ t_stack    *get_pivot(t_stack *lst, t_stack *first, t_stack *last)
 {
     t_stack *pivot;
     int     i;
-//calcolare la size  tra first e last anche se last si trova prima di first
-    if (first_before_last(first, last))
-        i = (ft_lstsize(first) - ft_lstsize(last) + 1) / 2;
-    else
-        i = (ft_lstsize(first) - lstposition(lst, last) + 1) / 2;
+
+    i = get_distance(lst, first, last) / 2;
     pivot = first;
     while (i > 0)
     {
-        if (pivot->next)
-            pivot = pivot->next;
-        else
-            pivot = lst;
+        pivot = get_next(lst, pivot);
         i--;
     }
-    //ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
+    ////ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
     if (pivot->x > first->x)
     {
         if (pivot->x < last->x)

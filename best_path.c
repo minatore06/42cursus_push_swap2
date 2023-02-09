@@ -11,6 +11,24 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
+t_stack *get_next(t_stack *A, t_stack *el)
+{
+    if (el->next)
+        return (el->next);
+    return (A);
+}
+
+int get_distance(t_stack *lst, t_stack *first, t_stack *second)
+{
+    int i;
+
+    if (first_before_last(first, second))
+        i = ft_lstsize(first) - ft_lstsize(second) + 1;
+    else
+        i = ft_lstsize(first) - lstposition(lst, second) + 1;
+    return (i);
+}
+
 int lstposition(t_stack *lst, t_stack *el)
 {
     int i;
