@@ -229,33 +229,33 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 			bfrthis(A->head, small_right)->right = 1;
 		}
 	}
-	else if (lstposition(A->head, pivot) - lstposition(A->head, first) == 1){
+	else if (get_distance(A->head, first, pivot) == 1){
 		//ft_printf("?\n");
 		bfrthis(A->head, pivot)->right = 1;}
 	else{
 		//ft_printf("REDO1 %d\n", pivot->x);
 		sort(A, B, first, pivot);}
-	if (lstposition(A->head, bfrthis(A->head, last)) - lstposition(A->head, pivot) == 2)
+	if (get_distance(A->head, pivot, bfrthis(A->head, last)) == 2)
 	{
 		//ft_printf("22\n");
-		pivot = pivot->next;
-		if (pivot->x > ((t_stack *)pivot->next)->x)
-			swap2el(&A->head, B, pivot, pivot->next);
+		pivot = get_next(A->head, pivot);
+		if (pivot->x > get_next(A->head, pivot)->x)
+			swap2el(&A->head, B, pivot, get_next(A->head, pivot));
 		else
 		{
 			pivot->right = 1;
-			((t_stack *)pivot->next)->right = 1;
+			get_next(A->head, pivot)->right = 1;
 		}
 	}
-	else if (lstposition(A->head, bfrthis(A->head, last)) - lstposition(A->head, pivot) == 1)
+	else if (get_distance(A->head, pivot, bfrthis(A->head, last)) == 1)
 	{
 		//ft_printf("???\n");
-		((t_stack *)pivot->next)->right = 1;
+		get_next(A->head, pivot)->right = 1;
 	}
 	else
 	{
 		//ft_printf("REDO2 %d\n", pivot->x);
-		sort(A, B, pivot->next, last);
+		sort(A, B, get_next(A->head, pivot), last);
 	}
 }
 
