@@ -22,32 +22,17 @@ int first_before_last(t_stack *first, t_stack *last)
     return (0);
 }
 
-t_stack    *get_pivot(t_stack *lst, t_stack *first, t_stack *last)
+t_stack    *get_pivot(t_stack *lst, t_stack *small, t_stack *big)
 {
-    t_stack *pivot;
-    int     i;
+    int     med;
 
-    i = get_distance(lst, first, last) / 2;
-    pivot = first;
-    while (i > 0)
+    med = (small->x + big->x) / 2;
+    while (lst)
     {
-        pivot = get_next(lst, pivot);
-        i--;
+        if (lst->x == med)
+            break ;
+        lst = lst->next;
     }
+    return (lst);
     ////ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
-    if (pivot->x > first->x)
-    {
-        if (pivot->x < last->x)
-            return (pivot);
-        else if (first->x < last->x)
-            return (last);
-        else
-            return (first);
-    }
-    else if (pivot->x > last->x)
-            return (pivot);
-    else if (first->x > last->x)
-        return (last);
-    else
-        return (first);
 }

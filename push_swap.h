@@ -26,6 +26,7 @@ t_stack *bfrthis(t_stack *lst, t_stack *this);
 t_stack *get_pivot(t_stack *lst, t_stack *start, t_stack *last);
 t_stack *get_next(t_stack *A, t_stack *el);
 int     to_get_first(t_stack *head, t_stack *el);
+int     first_before_last(t_stack *first, t_stack *last);
 int     lstposition(t_stack *lst, t_stack *el);
 int     get_distance(t_stack *lst, t_stack *first, t_stack *second);
 void    put_first(t_stack **stack, t_stack *el);

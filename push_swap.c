@@ -15,10 +15,13 @@ void	print_stack(t_stack *s)
 {
 	while (s)
 	{
-		////ft_printf("A: %d | ", s->x);
+		ft_printf("%d|", s->x);
+		if (s->right)
+			ft_printf("\\/");
+		ft_printf("\n");
 		s = s->next;
 	}
-	////ft_printf("\n");
+	ft_printf("A\n");
 }
 
 t_stack *manage_input(char **argv)
@@ -50,8 +53,53 @@ t_stack *manage_input(char **argv)
 
 void	move_to_b(t_stack **A, t_stack **B, t_stack *el)
 {
+	ft_printf("Sto spostando in b %d\n", el->x);
 	put_first(A, el);
 	pb(A, B);
+}
+
+void	move_to_a(t_stack **A, t_stack **B, t_stack *el)
+{
+	ft_printf("Sto spostando in a %d\n", el->x);
+	put_first(B, el);
+	pa(A, B);
+}
+
+void	move_smallers(t_stack **A, t_stack **B, t_stack *pivot)
+{
+	t_stack	*el;
+
+	el = *A;
+	while(el)
+	{
+		if (el->x < pivot->x)
+		{
+			move_to_b(A, B, el);
+			el = *A;
+			continue ;
+		}
+		el = el->next;
+	}
+	move_to_b(A, B, pivot);
+}
+
+void	move_largers(t_stack **A, t_stack **B, t_stack *pivot)
+{
+	t_stack	*el;
+
+	el = *B;
+	while(el)
+	{
+		if (el->x > pivot->x)
+		{
+			move_to_a(A, B, el);
+			el = *B;
+			continue ;
+		}
+		el = el->next;
+	}
+	move_to_a(A, B, pivot);
+	pivot->right = 1;
 }
 
 void	swap2el(t_stack **A, t_stack **B, t_stack *el1, t_stack *el2)
@@ -145,6 +193,20 @@ t_stack	*get_smaller(t_stack *A)
 	return (min);
 }
 
+t_stack	*get_bigger(t_stack *A)
+{
+	t_stack	*max;
+
+	max = A;
+	while (A)
+	{
+		if (A->x > max->x)
+			max = A;
+		A = A->next;
+	}
+	return (max);
+}
+
 int	left_is_right(t_stack *lst, t_stack *start, t_stack *big, t_stack *small)
 {
 	//ft_printf("small: %d, big: %d\n", small->x, big->x);
@@ -176,48 +238,140 @@ int	is_order(t_stack *lst, t_stack *start, t_stack *end)
 	return (1);
 }
 
-void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
+int		is_number_between(t_stack *lst, t_stack *small, t_stack *big)
+{
+	while (lst)
+	{
+		if (lst == small || lst == big)
+		{
+			lst = lst->next;
+			continue ;
+		}
+		if (lst->x > small->x && lst->x < big->x)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+void	alone_numbers(t_stack *alone)
+{
+	alone->right = 1;
+}
+
+void	couple_numbers(t_stack **A, t_stack *couple)
+{
+	couple->right = 1;
+	get_next(*A, couple)->right = 1;
+	if (couple->x > get_next(*A, couple)->x)
+	{
+		put_first(A, couple);
+		sa(A, 1);
+	}
+}
+
+t_stack	*consecutive_numbers(t_stack *A, t_stack *el, int sec)
+{
+	t_stack	*check;
+
+	check = el;
+	while (check->next)
+	{
+		if (check->x < get_next(A, check)->x && !is_number_between(A, check, get_next(A, check)))
+			get_next(A, check)->right = 1;
+		else
+			break ;
+		check = check->next;
+	}
+	while (bfrthis(A, el))
+	{
+		if (el->x > bfrthis(A, el)->x && !is_number_between(A, bfrthis(A, el), el))
+			bfrthis(A, el)->right = 1;
+		else
+			break ;
+		el = bfrthis(A, el);
+	}
+	if (sec)
+		return (el);
+	return (check);
+}
+
+void	epic_check(t_stack **A)
+{
+	t_stack	*lst;
+	t_stack	*first;
+	t_stack	*second;
+
+	lst = *A;
+	while (lst)
+	{
+		if (lst->right)
+		{
+			first = lst;
+			first = consecutive_numbers(*A, first, 0);
+			while (lst)
+			{
+				if (lst->right)
+				{
+					second = lst;
+					second = consecutive_numbers(*A, second, 1);
+					if (get_distance(*A, first, second) == 1)
+						alone_numbers(get_next(*A, first));
+					else if (get_distance(*A, first, second) == 2)
+						couple_numbers(A, get_next(*A, first));
+					break ;
+				}
+				lst = lst->next;
+			}
+			lst = first;
+		}
+		lst = lst->next;
+	}
+}
+//MOVE ALL SMALLER TO B
+//MOVE PIVOT TO B
+//PUT larger then next pivot
+//again
+//again
+void	sort(t_stack **A, t_stack **B)
 {
 	t_stack *pivot;
-	t_stack	*big_left;
-	t_stack	*small_right;
-//IF PIVOT SWAPS WITH FIRST OR LAST (risolto forse)
-//IF PIVOT IS FIRST OR LAST (risolto forse)
-	if (first)
-		//ft_printf("first %d\n", first->x);
-	if (last)
-		//ft_printf("last %d\n", bfrthis(A->head, last)->x);
-	if (get_next(A->head, first) == last)
-		return ;
-	if (is_order(A->head, first, last))
-		return ;
+/* 	t_stack	*big_left;
+	t_stack	*small_right; */
+
+/* 	if (is_order(A->head, first, last))
+		return ; */
 	//ft_printf("bfr last %p\n", last);
-	pivot = get_pivot(A->head, first, bfrthis(A->head, last));
-	//ft_printf("size: %d, pivot %d\n",ft_lstsize(A->head), pivot->x);
-	if (pivot == first)
-		first = get_next(A->head, pivot);
-	if (pivot == last)
-		last = bfrthis(A->head, pivot);
-	move_to_b(&A->head, B, pivot);
-	while (1)
-	{//rimuovere questo put_first
-		//put_first(&A->head, A->start);
-		big_left = get_first_bigger(A->head, A->start, pivot->x);
-		small_right = get_last_smaller(A->head, A->start, pivot->x);
-		if (left_is_right(A->head, A->start, big_left, small_right))
-			break;
-		else
-			swap2el(&A->head, B, big_left, small_right);
-		if (big_left == first)
-			first = small_right;
-	}
-	if (big_left == first)
-		first = get_next(A->head, pivot);
-	//ft_printf("MEGA\n");
-	swap_pivot(&A->head, B, bfrthis(A->head, last), big_left);
-	//put_first(&A->head, A->start);//rimuovere questo
+	pivot = get_pivot(*A, get_smaller(*A), get_bigger(*A));
+	ft_printf("size: %d, pivot %d\n",ft_lstsize(*A), pivot->x);
+	move_smallers(A, B, pivot);
+	pa(A, B);
 	pivot->right = 1;
-	if (get_distance(A->head, first, pivot) == 2)
+	while (1)
+	{
+		print_stack(*A);
+		if (ft_lstsize(*B) == 1)
+		{
+			pa(A, B);
+			(*A)->right = 1;
+			break;
+		}
+		else if (ft_lstsize(*B) == 2)
+		{
+			if ((*B)->x < get_next(*B, *B)->x)
+				sb(B, 1);
+			pa(A, B);
+			(*A)->right = 1;
+			pa(A, B);
+			(*A)->right = 1;
+			break;
+		}
+		pivot = get_pivot(*B, get_smaller(*B), get_bigger(*B));
+		move_largers(A, B, pivot);
+	}
+	ft_printf("MEGA\n");
+	epic_check(A);
+	/* if (get_distance(A->head, first, pivot) == 2)
 	{
 		//ft_printf("21\n");
 		small_right = bfrthis(A->head, pivot);
@@ -256,7 +410,7 @@ void	sort(t_ez_stack *A, t_stack **B, t_stack *first, t_stack *last)
 	{
 		//ft_printf("REDO2 %d\n", pivot->x);
 		sort(A, B, get_next(A->head, pivot), last);
-	}
+	} */
 }
 
 int	main(int argc, char *argv[])
@@ -268,12 +422,12 @@ int	main(int argc, char *argv[])
 		return (0);
 	A.head = manage_input(argv);
 	A.start = get_smaller(A.head);
-	put_first(&A.head, A.start);
+	//put_first(&A.head, A.start);
 	B = 0;	
 /* 	if (is_order(A))
 		return ; */
-	sort(&A, &B, A.start, A.start);
-	//print_stack(A.head);
+	sort(&A.head, &B);
 	put_first(&A.head, A.start);
+	print_stack(A.head);
 	return (0);
 }
