@@ -24,6 +24,13 @@ void	print_stack(t_stack *s)
 	ft_printf("A\n");
 }
 
+int	ft_abs(int	x)
+{
+	if (x < 0)
+		x = -x;
+	return (x);
+}
+
 t_stack *manage_input(char **argv)
 {
 	t_stack	*input;
@@ -238,6 +245,66 @@ int	is_order(t_stack *lst, t_stack *start, t_stack *end)
 	return (1);
 }
 
+void	order_trio(t_stack **lst)
+{
+	int	big_pos;
+	int	small_pos;
+
+	big_pos = lstposition(*lst, get_bigger(*lst));
+	small_pos = lstposition(*lst, get_smaller(*lst));
+	if (big_pos + small_pos == 1)
+	{
+		if (big_pos < small_pos)
+			ra(lst, 1);
+		else
+		{
+			sa(lst, 1);
+			ra(lst, 1);
+		}
+	}
+	else if (big_pos + small_pos == 2)
+	{
+		if (big_pos < small_pos)
+		{
+			sa(lst, 1);
+			rra(lst, 1);
+		}
+	}
+	else if (big_pos + small_pos == 3)
+	{
+		if (big_pos > small_pos)
+			sa(lst, 1);
+		else
+			rra(lst, 1);
+	}
+}
+
+void	order_four(t_stack **A, t_stack **B)
+{
+	int	big_weight;
+	int	small_weight;
+
+	big_weight = ft_abs(2 - lstposition(*A, get_bigger(*A))) - 1;
+	small_weight = ft_abs(2 - lstposition(*A, get_smaller(*A)));
+	if (big_weight > small_weight)
+		move_to_b(A, B, get_bigger(*A));
+	else
+		move_to_b(A, B, get_smaller(*A));
+	order_trio(A);
+	pa(A, B);
+	if (big_weight > small_weight)
+		ra(A, 1);
+}
+
+void	order_five(t_stack **A, t_stack **B)
+{
+	move_to_b(A, B, get_smaller(*A));
+	move_to_b(A, B, get_smaller(*A));
+	order_trio(A);
+	pa(A, B);
+	pa(A, B);
+}
+
 int		is_number_between(t_stack *lst, t_stack *small, t_stack *big)
 {
 	while (lst)
@@ -294,6 +361,63 @@ t_stack	*consecutive_numbers(t_stack *A, t_stack *el, int sec)
 	if (sec)
 		return (el);
 	return (check);
+}
+
+void	trio_in_group(t_stack **lst, t_stack *trio)
+{
+	t_stack	*bigger;
+	t_stack	*smaller;
+	int		big_pos;
+	int		small_pos;
+
+	put_first(lst, trio);
+	if (trio->x > get_next(*lst, trio))
+	{
+		bigger = trio;
+		smaller = get_next(*lst, trio);
+		if (trio->x > get_next(*lst, get_next(*lst, trio))->x)
+			if (get_next(*lst, trio)->x > get_next(*lst, get_next(*lst, trio)))
+				smaller = get_next(*lst, get_next(*lst, trio));
+		else
+			bigger = get_next(*lst, get_next(*lst, trio));
+	}
+	else
+	{
+		bigger = get_next(*lst, trio);
+		smaller = trio;
+		if (get_next(*lst, trio)->x > get_next(*lst, get_next(*lst, trio)))
+			if (trio->x > get_next(*lst, get_next(*lst, trio))->x)
+				smaller = get_next(*lst, get_next(*lst, trio));
+		else
+			bigger = get_next(*lst, get_next(*lst, trio));
+	}
+	big_pos = lstposition(*lst, bigger);
+	small_pos = lstposition(*lst, smaller);
+	/* if (big_pos + small_pos == 1)
+	{
+		if (big_pos < small_pos)
+			ra(lst, 1);
+		else
+		{
+			sa(lst, 1);
+			ra(lst, 1);
+		}
+	}
+	else if (big_pos + small_pos == 2)
+	{
+		if (big_pos < small_pos)
+		{
+			sa(lst, 1);
+			rra(lst, 1);
+		}
+	}
+	else if (big_pos + small_pos == 3)
+	{
+		if (big_pos > small_pos)
+			sa(lst, 1);
+		else
+			rra(lst, 1);
+	} */
 }
 
 void	epic_check(t_stack **A)
@@ -413,6 +537,20 @@ void	sort(t_stack **A, t_stack **B)
 	} */
 }
 
+void	choose_alg(t_stack **A, t_stack **B)
+{
+/* 	if (is_order(A))
+		return ; */
+	if (ft_lstsize(*A) == 5)
+		order_five(A, B);
+	else if (ft_lstsize(*A) == 4)
+		order_four(A, B);
+	else if (ft_lstsize(*A) == 3)
+		order_trio(A);
+	else
+		sort(A, B);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_ez_stack A;
@@ -422,11 +560,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	A.head = manage_input(argv);
 	A.start = get_smaller(A.head);
-	//put_first(&A.head, A.start);
 	B = 0;	
-/* 	if (is_order(A))
-		return ; */
-	sort(&A.head, &B);
+	choose_alg(&A.head, &B);
 	put_first(&A.head, A.start);
 	print_stack(A.head);
 	return (0);
