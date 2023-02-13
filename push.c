@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void pa(t_stack **a, t_stack **b)
+void pa(t_stack **a, t_stack **b, int verbose)
 {
 	t_stack	*tmp;
 
@@ -21,10 +21,11 @@ void pa(t_stack **a, t_stack **b)
 	*b = (*b)->next;
 	tmp->next = *a;
 	*a = tmp;
-	write(1, "pa\n", 3);
+	if (verbose)
+		write(1, "pa\n", 3);
 }
 
-void pb(t_stack **a, t_stack **b)
+void pb(t_stack **a, t_stack **b, int verbose)
 {
 	t_stack	*tmp;
 
@@ -34,5 +35,6 @@ void pb(t_stack **a, t_stack **b)
 	*a = (*a)->next;
 	tmp->next = *b;
 	*b = tmp;
-	write(1, "pb\n", 3);
+	if (verbose)
+		write(1, "pb\n", 3);
 }

@@ -52,7 +52,7 @@ int to_get_first(t_stack *head, t_stack *el)
     return (-1);
 }
 
-void    put_first(t_stack **stack, t_stack *el)
+void    put_first(t_stack **stack, t_stack *el, int verbose)
 {
     int x;
 
@@ -60,9 +60,9 @@ void    put_first(t_stack **stack, t_stack *el)
     if (to_get_first(*stack, el) > 0)
     {
         while (x--)
-            ra(stack, 1);
+            ra(stack, verbose);
     }
     else
         while (x++ < ft_lstsize(*stack))
-            rra(stack, 1);
+            rra(stack, verbose);
 }
