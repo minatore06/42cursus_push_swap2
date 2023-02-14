@@ -25,14 +25,20 @@ int first_before_last(t_stack *first, t_stack *last)
 t_stack    *get_pivot(t_stack *lst, t_stack *small, t_stack *big)
 {
     int     med;
+    int     distance;
+    t_stack *pivot;
 
     med = (small->x + big->x) / 2;
+    distance = med * 2;
     while (lst)
     {
-        if (lst->x == med)
-            break ;
+        if (ft_abs(med - lst->x) < distance)
+        {
+            distance = ft_abs(med - lst->x);
+            pivot = lst;
+        }
         lst = lst->next;
     }
-    return (lst);
+    return (pivot);
     ////ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
 }

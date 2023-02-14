@@ -3,7 +3,7 @@ CFLAGS=-Wall -Wextra -Werror
 NAME=push_swap.a
 OUT=push_swap
 
-FILES=push.c swap.c rotate.c r_rotate.c get_pivot.c best_path.c
+FILES=push.c swap.c rotate.c r_rotate.c get_pivot.c best_path.c easy_sort.c sort_in_group.c epic_checks.c sorting_core.c
 OBJECTS=$(FILES:.c=.o)
 
 LIBFT=libft/
