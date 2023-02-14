@@ -38,7 +38,7 @@ int     get_distance(t_stack *lst, t_stack *first, t_stack *second);
 int 	is_order(t_stack *lst, t_stack *start, t_stack *end);
 int		is_number_between(t_stack *lst, t_stack *small, t_stack *big);
 int	    left_is_right(t_stack *lst, t_stack *start, t_stack *big, t_stack *small);
-void    put_first(t_stack **stack, t_stack *el, int verbose);
+void    put_first(t_stack **stack, t_stack *el, int verbose, int is_a);
 void	move_to_b(t_stack **A, t_stack **B, t_stack *el, int verbose);
 void	move_to_a(t_stack **A, t_stack **B, t_stack *el, int verbose);
 void	move_smallers(t_stack **A, t_stack **B, t_stack *pivot, int direction);

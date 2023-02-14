@@ -40,5 +40,5 @@ t_stack    *get_pivot(t_stack *lst, t_stack *small, t_stack *big)
         lst = lst->next;
     }
     return (pivot);
-    ////ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
+    //ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
 }

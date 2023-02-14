@@ -38,7 +38,7 @@ void	couple_numbers(t_stack **A, t_stack *couple)
 	get_next(*A, couple)->right = 1;
 	if (couple->x > get_next(*A, couple)->x)
 	{
-		put_first(A, couple, 1);
+		put_first(A, couple, 1, 1);
 		sa(A, 1);
 	}
 }

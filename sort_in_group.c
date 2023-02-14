@@ -18,7 +18,7 @@ t_stack	*trio_in_group(t_stack **lst, t_stack *trio)
 	int		big_pos;
 	int		small_pos;
 
-	put_first(lst, trio, 1);
+	put_first(lst, trio, 1, 1);
 	if (trio->x > get_next(*lst, trio)->x)
 	{
 		bigger = trio;
@@ -86,7 +86,7 @@ void	four_in_group(t_stack **A, t_stack **B, t_stack *four)
 	t_stack	*bigger;
 	t_stack	*smaller;
 
-	put_first(A, four, 1);
+	put_first(A, four, 1, 1);
 	pb(A, B, 0);
 	pb(A, B, 0);
 	pb(A, B, 0);
@@ -99,7 +99,9 @@ void	four_in_group(t_stack **A, t_stack **B, t_stack *four)
 	pa(A, B, 0);
 	big_weight = lstposition(*A, bigger) + 3;
 	small_weight = lstposition(*A, smaller);
-	if (small_weight == 0 || big_weight - 3 == 0)
+	if (big_weight < small_weight && four == bigger)
+		four = four->next;
+	else if (big_weight >= small_weight && four == smaller)
 		four = four->next;
 	if (big_weight < small_weight)
 		move_to_b(A, B, bigger, 1);
@@ -107,9 +109,9 @@ void	four_in_group(t_stack **A, t_stack **B, t_stack *four)
 		move_to_b(A, B, smaller, 1);
 	four = trio_in_group(A, four);
 	if (big_weight < small_weight)
-		put_first(A, get_next(*A, get_next(*A, get_next(*A, four))), 1);
+		put_first(A, get_next(*A, get_next(*A, get_next(*A, four))), 1, 1);
 	else
-		put_first(A, four, 1);
+		put_first(A, four, 1, 1);
 	pa(A, B, 1);
 	smaller->right = 1;
 	bigger->right = 1;
@@ -120,7 +122,7 @@ void	five_in_group(t_stack **A, t_stack **B, t_stack *five)
 	t_stack	*smaller1;
 	t_stack	*smaller2;
 
-	put_first(A, five, 1);
+	put_first(A, five, 1, 1);
 	pb(A, B, 0);
 	pb(A, B, 0);
 	pb(A, B, 0);
@@ -130,7 +132,7 @@ void	five_in_group(t_stack **A, t_stack **B, t_stack *five)
 	move_to_a(A, B, smaller1, 0);
 	smaller2 = get_smaller(*B);
 	move_to_b(A, B, smaller1, 0);
-	put_first(B, get_next(*B, five), 0);
+	put_first(B, get_next(*B, five), 0, 0);
 	pa(A, B, 0);
 	pa(A, B, 0);
 	pa(A, B, 0);
@@ -140,9 +142,9 @@ void	five_in_group(t_stack **A, t_stack **B, t_stack *five)
 		five = five->next;
 	move_to_b(A, B, smaller1, 1);
 	move_to_b(A, B, smaller2, 1);
-	ft_printf("five %d\n", five->x);
+	//ft_printf("five %d\n", five->x);
 	five = trio_in_group(A, five);
-	put_first(A, five, 1);
+	put_first(A, five, 1, 1);
 	pa(A, B, 1);
 	pa(A, B, 1);
 	smaller1->right = 1;

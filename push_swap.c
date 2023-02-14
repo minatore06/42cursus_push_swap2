@@ -15,13 +15,13 @@ void	print_stack(t_stack *s)
 {
 	while (s)
 	{
-		ft_printf("%d|", s->x);
+		//ft_printf("%d|", s->x);
 		if (s->right)
-			ft_printf("\\/");
-		ft_printf("\n");
+			//ft_printf("\\/");
+		//ft_printf("\n");
 		s = s->next;
 	}
-	ft_printf("A\n");
+	//ft_printf("A\n");
 }
 
 int	ft_abs(int	x)
@@ -60,18 +60,18 @@ t_stack *manage_input(char **argv)
 
 void	move_to_b(t_stack **A, t_stack **B, t_stack *el, int verbose)
 {
-	if (verbose)
-		ft_printf("Sto spostando in b %d\n", el->x);
-	put_first(A, el, verbose);
-	pb(A, B, 1);
+	//if (verbose)
+		//ft_printf("Sto spostando in b %d\n", el->x);
+	put_first(A, el, verbose, 1);
+	pb(A, B, verbose);
 }
 
 void	move_to_a(t_stack **A, t_stack **B, t_stack *el, int verbose)
 {
-	if (verbose)
-		ft_printf("Sto spostando in a %d\n", el->x);
-	put_first(B, el, verbose);
-	pa(A, B, 1);
+	//if (verbose)
+		//ft_printf("Sto spostando in a %d\n", el->x);
+	put_first(B, el, verbose, 0);
+	pa(A, B, verbose);
 }
 
 void	move_smallers(t_stack **A, t_stack **B, t_stack *pivot, int direction)
@@ -129,7 +129,7 @@ void	swap2el(t_stack **A, t_stack **B, t_stack *el1, t_stack *el2)
 
 	if (get_next(*A, el1) == el2)
 	{
-		put_first(A, el1, 1);
+		put_first(A, el1, 1, 1);
 		sa(A, 1);
 		return;
 	}
@@ -139,7 +139,7 @@ void	swap2el(t_stack **A, t_stack **B, t_stack *el1, t_stack *el2)
 	//print_stack(*A);
 	sb(B, 1);
 	pa(A, B, 1);
-	put_first(A, go_first, 1);
+	put_first(A, go_first, 1, 1);
 	pa(A, B, 1);
 	//print_stack(A.head);
 }
@@ -160,7 +160,7 @@ void	swap_pivot(t_stack **A, t_stack **B, t_stack *last, t_stack *el2)
 	//print_stack(*A);
 	sb(B, 1);
 	pa(A, B, 1);
-	put_first(A, go_first, 1);
+	put_first(A, go_first, 1, 1);
 	pa(A, B, 1);
 	//print_stack(A.head);
 }
@@ -263,12 +263,12 @@ void	middle_sort(t_stack **A, t_stack **B, t_stack *start, int count)
 {
 	t_stack *pivot;
 
-	put_first(A, start, 1);
+	put_first(A, start, 1, 1);
 	while (count--)
 		pb(A, B, 1);
 	pivot = get_pivot(*B, get_smaller(*B), get_bigger(*B));
 	divide_et_impera(A, B, pivot);
-	ft_printf("MEGA\n");
+	//ft_printf("MEGA\n");
 	epic_check(A, B);
 }
 
@@ -292,18 +292,18 @@ void	epic_check(t_stack **A, t_stack **B)
 				{
 					second = lst;
 					second = consecutive_numbers(*A, second, 1);
-					ft_printf("first %d, second %d\n", first->x, second->x);
-					if (get_distance(*A, first, second) == 1){ft_printf("alone\n");
+					//ft_printf("first %d, second %d\n", first->x, second->x);
+					if (get_distance(*A, first, second) == 1){//ft_printf("alone\n");
 						alone_numbers(get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 2){ft_printf("couple\n");
+					else if (get_distance(*A, first, second) == 2){//ft_printf("couple\n");
 						couple_numbers(A, get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 3){ft_printf("trio\n");
+					else if (get_distance(*A, first, second) == 3){//ft_printf("trio\n");
 						trio_in_group(A, get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 4){ft_printf("quadro\n");
+					else if (get_distance(*A, first, second) == 4){//ft_printf("quadro\n");
 						four_in_group(A, B, get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 5){ft_printf("quinto\n");
+					else if (get_distance(*A, first, second) == 5){//ft_printf("quinto\n");
 						five_in_group(A, B, get_next(*A, first));}
-					else{ft_printf("picche\n");
+					else{//ft_printf("picche\n");
 						middle_sort(A, B, get_next(*A, first), get_distance(*A, first, second));}
 					lst = second;
 					break ;
@@ -330,14 +330,14 @@ void	sort(t_stack **A, t_stack **B)
 
 /* 	if (is_order(A->head, first, last))
 		return ; */
-	//ft_printf("bfr last %p\n", last);
+	////ft_printf("bfr last %p\n", last);
 	pivot = get_pivot(*A, get_smaller(*A), get_bigger(*A));
-	ft_printf("size: %d, pivot %d\n",ft_lstsize(*A), pivot->x);
+	//ft_printf("size: %d, pivot %d\n",ft_lstsize(*A), pivot->x);
 	move_smallers(A, B, pivot, -1);
 	pa(A, B, 1);
 	pivot->right = 1;
 	divide_et_impera(A, B, pivot);
-	ft_printf("MEGA\n");
+	//ft_printf("MEGA\n");
 	epic_check(A, B);
 	/* if (get_distance(A->head, first, pivot) == 2)
 	{
@@ -406,7 +406,7 @@ int	main(int argc, char *argv[])
 	A.start = get_smaller(A.head);
 	B = 0;	
 	choose_alg(&A.head, &B);
-	put_first(&A.head, A.start, 1);
+	put_first(&A.head, A.start, 1, 1);
 	//print_stack(A.head);
 	return (0);
 }
