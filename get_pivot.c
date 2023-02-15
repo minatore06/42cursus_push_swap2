@@ -32,6 +32,7 @@ t_stack    *get_pivot(t_stack *lst, t_stack *small, t_stack *big)
     distance = med * 2;
     while (lst)
     {
+
         if (ft_abs(med - lst->x) < distance)
         {
             distance = ft_abs(med - lst->x);

@@ -79,7 +79,7 @@ void	move_smallers(t_stack **A, t_stack **B, t_stack *pivot, int direction)
 	t_stack	*el;
 
 	el = *A;
-	while(el)
+	while(el && !el->right)
 	{
 		if (el->x < pivot->x)
 		{
@@ -103,7 +103,7 @@ void	move_largers(t_stack **A, t_stack **B, t_stack *pivot, int direction)
 	t_stack	*el;
 
 	el = *B;
-	while(el)
+	while(el && !el->right)
 	{
 		if (el->x > pivot->x)
 		{
@@ -200,30 +200,30 @@ t_stack	*get_last_smaller(t_stack *lst, t_stack *start, int pivot)
 	return (0);
 }
 
-t_stack	*get_smaller(t_stack *A)
+t_stack	*get_smaller(t_stack *lst)
 {
 	t_stack	*min;
 
-	min = A;
-	while (A)
+	min = lst;
+	while (lst)
 	{
-		if (A->x < min->x)
-			min = A;
-		A = A->next;
+		if (lst->x < min->x)
+			min = lst;
+		lst = lst->next;
 	}
 	return (min);
 }
 
-t_stack	*get_bigger(t_stack *A)
+t_stack	*get_bigger(t_stack *lst)
 {
 	t_stack	*max;
 
-	max = A;
-	while (A)
+	max = lst;
+	while (lst)
 	{
-		if (A->x > max->x)
-			max = A;
-		A = A->next;
+		if (lst->x > max->x)
+			max = lst;
+		lst = lst->next;
 	}
 	return (max);
 }
@@ -262,11 +262,20 @@ int	is_order(t_stack *lst, t_stack *start, t_stack *end)
 void	middle_sort(t_stack **A, t_stack **B, t_stack *start, int count)
 {
 	t_stack *pivot;
+	int		i;
 
-	put_first(A, start, 1, 1);
-	while (count--)
-		pb(A, B, 1);
+	i = count;
+	put_first(A, get_next(*A, start), 1, 1);
+	while (i--)
+		pb(A, B, 0);
 	pivot = get_pivot(*B, get_smaller(*B), get_bigger(*B));
+	while (*B)
+		pa(A, B, 0);
+	i = count;
+	move_smallers(A, B, pivot, -1);
+	put_first(A, get_next(*A, start), 1, 1);
+	pa(A, B, 1);
+	pivot->right = 1;
 	divide_et_impera(A, B, pivot);
 	//ft_printf("MEGA\n");
 	epic_check(A, B);
@@ -303,8 +312,8 @@ void	epic_check(t_stack **A, t_stack **B)
 						four_in_group(A, B, get_next(*A, first));}
 					else if (get_distance(*A, first, second) == 5){//ft_printf("quinto\n");
 						five_in_group(A, B, get_next(*A, first));}
-					else{//ft_printf("picche\n");
-						middle_sort(A, B, get_next(*A, first), get_distance(*A, first, second));}
+					else if (get_distance(*A, first, second) > 5){//ft_printf("picche\n");
+						middle_sort(A, B, first, get_distance(*A, first, second));}
 					lst = second;
 					break ;
 				}
