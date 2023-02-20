@@ -24,6 +24,7 @@ int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
 int		ft_tolower(int ch);
 int		ft_toupper(int ch);
 int		ft_atoi(char *str);
+long	ft_int_atoi(char *str);
 char	*ft_itoa(int n);
 char	*ft_strdup(const char *s);
 char	*ft_strchr(const char *s, int c);

@@ -78,3 +78,20 @@ void    put_first(t_stack **stack, t_stack *el, int verbose, int is_a)
         }
     }
 }
+/* 
+void    put_first_test(t_stack **A, t_stack **B, t_stack *el)
+{
+    int x;
+
+    x = lstposition(*A, el);
+    if (to_get_first(*A, el) > 0)
+    {
+        while (x--)
+            rr(A, B);
+    }
+    else
+    {
+        while (x++ < ft_lstsize(*A))
+            rrr(A, B);
+    }
+} */
