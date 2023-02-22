@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-int		is_number_between(t_stack *lst, t_stack *small, t_stack *big)
+int	is_number_between(t_stack *lst, t_stack *small, t_stack *big)
 {
 	while (lst)
 	{
@@ -32,37 +32,40 @@ void	alone_numbers(t_stack *alone)
 	alone->right = 1;
 }
 
-void	couple_numbers(t_stack **A, t_stack *couple)
+void	couple_numbers(t_stack **a, t_stack *couple)
 {
 	couple->right = 1;
-	get_next(*A, couple)->right = 1;
-	if (couple->x > get_next(*A, couple)->x)
+	get_next(*a, couple)->right = 1;
+	if (couple->x > get_next(*a, couple)->x)
 	{
-		put_first(A, couple, 1, 1);
-		sa(A, 1);
+		put_first(a, couple, 1, 1);
+		sa(a, 1);
 	}
 }
 
-t_stack	*consecutive_numbers(t_stack *A, t_stack *el, int sec)
+t_stack	*consecutive_numbers(t_stack *a, t_stack *el, int sec)
 {
 	t_stack	*check;
+	int		is_num_bet;
 
 	check = el;
 	while (check->next)
 	{
-		if (check->x < get_next(A, check)->x && !is_number_between(A, check, get_next(A, check)))
-			get_next(A, check)->right = 1;
+		is_num_bet = is_number_between(a, check, get_next(a, check));
+		if (check->x < get_next(a, check)->x && !is_num_bet)
+			get_next(a, check)->right = 1;
 		else
 			break ;
 		check = check->next;
 	}
-	while (bfrthis(A, el))
+	while (bfrthis(a, el))
 	{
-		if (el->x > bfrthis(A, el)->x && !is_number_between(A, bfrthis(A, el), el))
-			bfrthis(A, el)->right = 1;
+		is_num_bet = is_number_between(a, bfrthis(a, el), el);
+		if (el->x > bfrthis(a, el)->x && !is_num_bet)
+			bfrthis(a, el)->right = 1;
 		else
 			break ;
-		el = bfrthis(A, el);
+		el = bfrthis(a, el);
 	}
 	if (sec)
 		return (el);

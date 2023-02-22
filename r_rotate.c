@@ -11,12 +11,10 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-t_stack *bfrthis(t_stack *lst, t_stack *this)
+t_stack	*bfrthis(t_stack *lst, t_stack *this)
 {
 	if (!lst)
 		return (lst);
-/* 	if (this == lst)
-		return (ft_lstlast(lst)); */
 	while (lst->next)
 	{
 		if (lst->next == this)
@@ -26,7 +24,7 @@ t_stack *bfrthis(t_stack *lst, t_stack *this)
 	return (lst);
 }
 
-void rra(t_stack **a, int verbose)
+void	rra(t_stack **a, int verbose)
 {
 	t_stack	*tmp;
 
@@ -38,7 +36,7 @@ void rra(t_stack **a, int verbose)
 		write(1, "rra\n", 4);
 }
 
-void rrb(t_stack **b, int verbose)
+void	rrb(t_stack **b, int verbose)
 {
 	t_stack	*tmp;
 
@@ -50,7 +48,7 @@ void rrb(t_stack **b, int verbose)
 		write(1, "rrb\n", 4);
 }
 
-void rrr(t_stack **a, t_stack **b)
+void	rrr(t_stack **a, t_stack **b)
 {
 	rra(a, 0);
 	rrb(b, 0);

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void sa(t_stack **a, int verbose)
+void	sa(t_stack **a, int verbose)
 {
 	t_stack	*tmp;
 
@@ -25,7 +25,7 @@ void sa(t_stack **a, int verbose)
 		write(1, "sa\n", 3);
 }
 
-void sb(t_stack **b, int verbose)
+void	sb(t_stack **b, int verbose)
 {
 	t_stack	*tmp;
 
@@ -39,7 +39,7 @@ void sb(t_stack **b, int verbose)
 		write(1, "sb\n", 3);
 }
 
-void ss(t_stack **a, t_stack **b)
+void	ss(t_stack **a, t_stack **b)
 {
 	sa(a, 0);
 	sb(b, 0);

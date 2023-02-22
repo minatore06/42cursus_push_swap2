@@ -11,94 +11,84 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	middle_sort(t_stack **A, t_stack **B, t_stack *start, int count)
+void	middle_sort(t_stack **a, t_stack **b, t_stack *start, int count)
 {
-	t_stack *pivot;
+	t_stack	*pivot;
 	int		i;
 
 	i = count;
-	put_first(A, get_next(*A, start), 1, 1);
+	put_first(a, get_next(*a, start), 1, 1);
 	while (i--)
-		pb(A, B, 0);
-	pivot = get_pivot(*B, get_smaller(*B), get_bigger(*B));
-	while (*B)
-		pa(A, B, 0);
+		pb(a, b, 0);
+	pivot = get_pivot(*b, get_smaller(*b), get_bigger(*b));
+	while (*b)
+		pa(a, b, 0);
 	i = count;
-	move_smallers(A, B, pivot, -1);
-	put_first(A, get_next(*A, start), 1, 1);
-	pa(A, B, 1);
+	move_smallers(a, b, pivot, -1);
+	put_first(a, get_next(*a, start), 1, 1);
+	pa(a, b, 1);
 	pivot->right = 1;
-	divide_et_impera(A, B, pivot);
-	//ft_printf("MEGA\n");
-	epic_check(A, B);
+	divide_et_impera(a, b, pivot);
+	epic_check(a, b);
 }
 
-void	epic_check(t_stack **A, t_stack **B)
+t_stack	*leftover(t_stack **a, t_stack **b, t_stack *first, t_stack *second)
+{
+	int		distance;
+
+	second = consecutive_numbers(*a, second, 1);
+	distance = get_distance(*a, first, second);
+	if (distance == 1)
+		alone_numbers(get_next(*a, first));
+	else if (distance == 2)
+		couple_numbers(a, get_next(*a, first));
+	else if (distance == 3)
+		trio_in_group(a, get_next(*a, first));
+	else if (distance == 4)
+		four_in_group(a, b, get_next(*a, first));
+	else if (distance == 5)
+		five_in_group(a, b, get_next(*a, first));
+	else if (distance > 5)
+		middle_sort(a, b, first, distance);
+	return (second);
+}
+
+void	epic_check(t_stack **a, t_stack **b)
 {
 	t_stack	*lst;
 	t_stack	*first;
-	t_stack	*second;
 
-	lst = *A;
+	lst = *a;
 	while (lst)
 	{
 		if (lst->right)
 		{
-			lst = consecutive_numbers(*A, lst, 0);
+			lst = consecutive_numbers(*a, lst, 0);
 			first = lst;
 			lst = lst->next;
 			while (lst)
 			{
 				if (lst->right)
 				{
-					second = lst;
-					second = consecutive_numbers(*A, second, 1);
-					//ft_printf("first %d, second %d\n", first->x, second->x);
-					if (get_distance(*A, first, second) == 1){//ft_printf("alone\n");
-						alone_numbers(get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 2){//ft_printf("couple\n");
-						couple_numbers(A, get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 3){//ft_printf("trio\n");
-						trio_in_group(A, get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 4){//ft_printf("quadro\n");
-						four_in_group(A, B, get_next(*A, first));}
-					else if (get_distance(*A, first, second) == 5){//ft_printf("quinto\n");
-						five_in_group(A, B, get_next(*A, first));}
-					else if (get_distance(*A, first, second) > 5){//ft_printf("picche\n");
-						middle_sort(A, B, first, get_distance(*A, first, second));}
-					lst = second;
+					lst = leftover(a, b, first, lst);
 					break ;
 				}
 				lst = lst->next;
 			}
-			//print_stack(*A);
-			
 		}
 		else
 			lst = lst->next;
 	}
 }
 
-//MOVE ALL SMALLER TO B
-//MOVE PIVOT TO B
-//PUT larger then next pivot
-//again
-//again
-void	sort(t_stack **A, t_stack **B)
+void	sort(t_stack **a, t_stack **b)
 {
-	t_stack *pivot;
-/* 	t_stack	*big_left;
-	t_stack	*small_right; */
+	t_stack	*pivot;
 
-/* 	if (is_order(A->head, first, last))
-		return ; */
-	////ft_printf("bfr last %p\n", last);
-	pivot = get_pivot(*A, get_smaller(*A), get_bigger(*A));
-	//ft_printf("size: %d, pivot %d\n",ft_lstsize(*A), pivot->x);
-	move_smallers(A, B, pivot, -1);
-	pa(A, B, 1);
+	pivot = get_pivot(*a, get_smaller(*a), get_bigger(*a));
+	move_smallers(a, b, pivot, -1);
+	pa(a, b, 1);
 	pivot->right = 1;
-	divide_et_impera(A, B, pivot);
-	//ft_printf("MEGA\n");
-	epic_check(A, B);
+	divide_et_impera(a, b, pivot);
+	epic_check(a, b);
 }

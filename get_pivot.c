@@ -11,35 +11,33 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-int first_before_last(t_stack *first, t_stack *last)
+int	first_before_last(t_stack *first, t_stack *last)
 {
-    while (first)
-    {
-        if (first == last)                         
-            return (1);
-        first = first->next;
-    }
-    return (0);
+	while (first)
+	{
+		if (first == last)
+			return (1);
+		first = first->next;
+	}
+	return (0);
 }
 
-t_stack    *get_pivot(t_stack *lst, t_stack *small, t_stack *big)
+t_stack	*get_pivot(t_stack *lst, t_stack *small, t_stack *big)
 {
-    int     med;
-    int     distance;
-    t_stack *pivot;
+	int		med;
+	int		distance;
+	t_stack	*pivot;
 
-    med = (small->x + big->x) / 2;
-    distance = med * 2;
-    while (lst)
-    {
-
-        if (ft_abs(med - lst->x) < distance)
-        {
-            distance = ft_abs(med - lst->x);
-            pivot = lst;
-        }
-        lst = lst->next;
-    }
-    return (pivot);
-    //ft_printf("str: %d pvt: %d lst: %d\n", first->x, pivot->x, last->x);
+	med = (small->x + big->x) / 2;
+	distance = med * 2;
+	while (lst)
+	{
+		if (ft_abs(med - lst->x) < distance)
+		{
+			distance = ft_abs(med - lst->x);
+			pivot = lst;
+		}
+		lst = lst->next;
+	}
+	return (pivot);
 }

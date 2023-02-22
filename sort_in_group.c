@@ -79,74 +79,74 @@ t_stack	*trio_in_group(t_stack **lst, t_stack *trio)
 	return (smaller);
 }
 
-void	four_in_group(t_stack **A, t_stack **B, t_stack *four)
+void	four_in_group(t_stack **a, t_stack **b, t_stack *four)
 {
 	int		big_weight;
 	int		small_weight;
 	t_stack	*bigger;
 	t_stack	*smaller;
 
-	put_first(A, four, 1, 1);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	bigger = get_bigger(*B);
-	smaller = get_smaller(*B);
-	pa(A, B, 0);
-	pa(A, B, 0);
-	pa(A, B, 0);
-	pa(A, B, 0);
-	big_weight = lstposition(*A, bigger) + 3;
-	small_weight = lstposition(*A, smaller);
+	put_first(a, four, 1, 1);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	bigger = get_bigger(*b);
+	smaller = get_smaller(*b);
+	pa(a, b, 0);
+	pa(a, b, 0);
+	pa(a, b, 0);
+	pa(a, b, 0);
+	big_weight = lstposition(*a, bigger) + 3;
+	small_weight = lstposition(*a, smaller);
 	if (big_weight < small_weight && four == bigger)
 		four = four->next;
 	else if (big_weight >= small_weight && four == smaller)
 		four = four->next;
 	if (big_weight < small_weight)
-		move_to_b(A, B, bigger, 1);
+		move_to_b(a, b, bigger, 1);
 	else
-		move_to_b(A, B, smaller, 1);
-	four = trio_in_group(A, four);
+		move_to_b(a, b, smaller, 1);
+	four = trio_in_group(a, four);
 	if (big_weight < small_weight)
-		put_first(A, get_next(*A, get_next(*A, get_next(*A, four))), 1, 1);
+		put_first(a, get_next(*a, get_next(*a, get_next(*a, four))), 1, 1);
 	else
-		put_first(A, four, 1, 1);
-	pa(A, B, 1);
+		put_first(a, four, 1, 1);
+	pa(a, b, 1);
 	smaller->right = 1;
 	bigger->right = 1;
 }
 
-void	five_in_group(t_stack **A, t_stack **B, t_stack *five)
+void	five_in_group(t_stack **a, t_stack **b, t_stack *five)
 {
 	t_stack	*smaller1;
 	t_stack	*smaller2;
 
-	put_first(A, five, 1, 1);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	pb(A, B, 0);
-	smaller1 = get_smaller(*B);
-	move_to_a(A, B, smaller1, 0);
-	smaller2 = get_smaller(*B);
-	move_to_b(A, B, smaller1, 0);
-	put_first(B, get_next(*B, five), 0, 0);
-	pa(A, B, 0);
-	pa(A, B, 0);
-	pa(A, B, 0);
-	pa(A, B, 0);
-	pa(A, B, 0);
+	put_first(a, five, 1, 1);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	pb(a, b, 0);
+	smaller1 = get_smaller(*b);
+	move_to_a(a, b, smaller1, 0);
+	smaller2 = get_smaller(*b);
+	move_to_b(a, b, smaller1, 0);
+	put_first(b, get_next(*b, five), 0, 0);
+	pa(a, b, 0);
+	pa(a, b, 0);
+	pa(a, b, 0);
+	pa(a, b, 0);
+	pa(a, b, 0);
 	while (five == smaller1 || five == smaller2)
 		five = five->next;
-	move_to_b(A, B, smaller1, 1);
-	move_to_b(A, B, smaller2, 1);
+	move_to_b(a, b, smaller1, 1);
+	move_to_b(a, b, smaller2, 1);
 	//ft_printf("five %d\n", five->x);
-	five = trio_in_group(A, five);
-	put_first(A, five, 1, 1);
-	pa(A, B, 1);
-	pa(A, B, 1);
+	five = trio_in_group(a, five);
+	put_first(a, five, 1, 1);
+	pa(a, b, 1);
+	pa(a, b, 1);
 	smaller1->right = 1;
 	smaller2->right = 1;
 }

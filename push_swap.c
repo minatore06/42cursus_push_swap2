@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-//22 24 12 7 14 16 3 15 17 19 9 18 25 6 10 8 23 11 20 5 21 1 4 13 2 
+
 /* void	print_stack(t_stack *s)
 {
 	while (s)
 	{
-		//ft_printf("%d|", s->x);
+		ft_printf("%d|", s->x);
 		if (s->right)
-			//ft_printf("\\/");
-		//ft_printf("\n");
+			ft_printf("\\/");
+		ft_printf("\n");
 		s = s->next;
 	}
-	//ft_printf("A\n");
+	ft_printf("a\n");
 } */
 
-int	ft_abs(int	x)
+int	ft_abs(int x)
 {
 	if (x < 0)
 		x = -x;
@@ -39,7 +39,6 @@ int	is_order(t_stack *lst, t_stack *start, t_stack *end)
 	start = get_next(lst, start);
 	while (start != end)
 	{
-		//ft_printf("hello\n");
 		if (old > start->x)
 			return (0);
 		old = start->x;
@@ -48,34 +47,31 @@ int	is_order(t_stack *lst, t_stack *start, t_stack *end)
 	return (1);
 }
 
-void	choose_alg(t_stack **A, t_stack **B)
+void	choose_alg(t_stack **a, t_stack **b)
 {
-/* 	if (is_order(A))
-		return ; */
-	if (ft_lstsize(*A) == 5)
-		order_five(A, B);
-	else if (ft_lstsize(*A) == 4)
-		order_four(A, B);
-	else if (ft_lstsize(*A) == 3)
-		order_trio(A);
+	if (ft_lstsize(*a) == 5)
+		order_five(a, b);
+	else if (ft_lstsize(*a) == 4)
+		order_four(a, b);
+	else if (ft_lstsize(*a) == 3)
+		order_trio(a);
 	else
-		sort(A, B);
+		sort(a, b);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_ez_stack A;
-	t_stack *B;
+	t_ez_stack	a;
+	t_stack		*b;
 
 	if (argc < 2)
 		return (0);
-	A.head = manage_input(argv);
-	if (!A.head)
+	a.head = manage_input(argv);
+	if (!a.head)
 		return (0);
-	A.start = get_smaller(A.head);
-	B = 0;	
-	choose_alg(&A.head, &B);
-	put_first(&A.head, A.start, 1, 1);
-	//print_stack(A.head);
+	a.start = get_smaller(a.head);
+	b = 0;
+	choose_alg(&a.head, &b);
+	put_first(&a.head, a.start, 1, 1);
 	return (0);
 }

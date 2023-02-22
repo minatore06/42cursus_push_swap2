@@ -18,7 +18,6 @@ t_stack	*get_first_bigger(t_stack *lst, t_stack *start, int pivot)
 	size = ft_lstsize(lst);
 	while (size--)
 	{
-		////ft_printf("%d\n", lst->x);
 		if (start->x > pivot && !start->right)
 			return (start);
 		start = get_next(lst, start);

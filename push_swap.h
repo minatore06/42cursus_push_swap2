@@ -20,7 +20,9 @@ typedef struct  s_ez_stack
     t_stack *head;
     t_stack *start;
 }   t_ez_stack;
+void	print_stack(t_stack *s);
 
+t_stack *manage_input(char **argv);
 t_stack *lstlast(t_stack *lst);
 t_stack *bfrthis(t_stack *lst, t_stack *this);
 t_stack *get_pivot(t_stack *lst, t_stack *start, t_stack *last);
@@ -37,6 +39,7 @@ int     lstposition(t_stack *lst, t_stack *el);
 int     get_distance(t_stack *lst, t_stack *first, t_stack *second);
 int 	is_order(t_stack *lst, t_stack *start, t_stack *end);
 int		is_number_between(t_stack *lst, t_stack *small, t_stack *big);
+void	sort(t_stack **A, t_stack **B);
 void    put_first(t_stack **stack, t_stack *el, int verbose, int is_a);
 void	move_to_b(t_stack **A, t_stack **B, t_stack *el, int verbose);
 void	move_to_a(t_stack **A, t_stack **B, t_stack *el, int verbose);

@@ -27,10 +27,9 @@ void	order_trio(t_stack **lst)
 	else if (big_pos + small_pos == 2)
 	{
 		if (big_pos < small_pos)
-		{
 			sa(lst, 1);
+		if (big_pos < small_pos)
 			rra(lst, 1);
-		}
 	}
 	else if (big_pos + small_pos == 3)
 	{
@@ -41,28 +40,28 @@ void	order_trio(t_stack **lst)
 	}
 }
 
-void	order_four(t_stack **A, t_stack **B)
+void	order_four(t_stack **a, t_stack **b)
 {
 	int	big_weight;
 	int	small_weight;
 
-	big_weight = ft_abs(2 - lstposition(*A, get_bigger(*A))) - 1;
-	small_weight = ft_abs(2 - lstposition(*A, get_smaller(*A)));
+	big_weight = ft_abs(2 - lstposition(*a, get_bigger(*a))) - 1;
+	small_weight = ft_abs(2 - lstposition(*a, get_smaller(*a)));
 	if (big_weight > small_weight)
-		move_to_b(A, B, get_bigger(*A), 1);
+		move_to_b(a, b, get_bigger(*a), 1);
 	else
-		move_to_b(A, B, get_smaller(*A), 1);
-	order_trio(A);
-	pa(A, B, 1);
+		move_to_b(a, b, get_smaller(*a), 1);
+	order_trio(a);
+	pa(a, b, 1);
 	if (big_weight > small_weight)
-		ra(A, 1);
+		ra(a, 1);
 }
 
-void	order_five(t_stack **A, t_stack **B)
+void	order_five(t_stack **a, t_stack **b)
 {
-	move_to_b(A, B, get_smaller(*A), 1);
-	move_to_b(A, B, get_smaller(*A), 1);
-	order_trio(A);
-	pa(A, B, 1);
-	pa(A, B, 1);
+	move_to_b(a, b, get_smaller(*a), 1);
+	move_to_b(a, b, get_smaller(*a), 1);
+	order_trio(a);
+	pa(a, b, 1);
+	pa(a, b, 1);
 }

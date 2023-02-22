@@ -11,68 +11,63 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	move_to_b(t_stack **A, t_stack **B, t_stack *el, int verbose)
+void	move_to_b(t_stack **a, t_stack **b, t_stack *el, int verbose)
 {
-	//if (verbose)
-		//ft_printf("Sto spostando in b %d\n", el->x);
-	put_first(A, el, verbose, 1);
-	//put_first_test(A, B, el);
-	pb(A, B, verbose);
+	put_first(a, el, verbose, 1);
+	pb(a, b, verbose);
 }
 
-void	move_to_a(t_stack **A, t_stack **B, t_stack *el, int verbose)
+void	move_to_a(t_stack **a, t_stack **b, t_stack *el, int verbose)
 {
-	//if (verbose)
-		//ft_printf("Sto spostando in a %d\n", el->x);
-	put_first(B, el, verbose, 0);
-	pa(A, B, verbose);
+	put_first(b, el, verbose, 0);
+	pa(a, b, verbose);
 }
 
-void	move_smallers(t_stack **A, t_stack **B, t_stack *pivot, int direction)
+void	move_smallers(t_stack **a, t_stack **b, t_stack *pivot, int direction)
 {
 	t_stack	*el;
 
-	el = *A;
-	while(el && !el->right)
+	el = *a;
+	while (el && !el->right)
 	{
 		if (el->x < pivot->x)
 		{
 			if (direction == 1)
-				move_to_a(A, B, el, 1);
+				move_to_a(a, b, el, 1);
 			else if (direction == -1)
-				move_to_b(A, B, el, 1);
-			el = *A;
+				move_to_b(a, b, el, 1);
+			el = *a;
 			continue ;
 		}
 		el = el->next;
 	}
 	if (direction == 1)
-		move_to_a(A, B, pivot, 1);
+		move_to_a(a, b, pivot, 1);
 	else if (direction == -1)
-		move_to_b(A, B, pivot, 1);
+		move_to_b(a, b, pivot, 1);
 }
 
-void	move_largers(t_stack **A, t_stack **B, t_stack *pivot, int direction)
+void	move_largers(t_stack **a, t_stack **b, t_stack *pivot, int direction)
 {
 	t_stack	*el;
 
-	el = *B;
-	while(el && !el->right)
+	el = *b;
+	while (el && !el->right)
 	{
 		if (el->x > pivot->x)
 		{
 			if (direction == 1)
-				move_to_a(A, B, el, 1);
+				move_to_a(a, b, el, 1);
 			else if (direction == -1)
-				move_to_b(A, B, el, 1);
-			el = *B;
+				move_to_b(a, b, el, 1);
+			el = *b;
 			continue ;
 		}
 		el = el->next;
 	}
 	if (direction == 1)
-		move_to_a(A, B, pivot, 1);
+		move_to_a(a, b, pivot, 1);
 	else if (direction == -1)
-		move_to_b(A, B, pivot, 1);
+		move_to_b(a, b, pivot, 1);
 	pivot->right = 1;
 }
