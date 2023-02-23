@@ -31,18 +31,19 @@ int	ft_abs(int x)
 	return (x);
 }
 
-int	is_order(t_stack *lst, t_stack *start, t_stack *end)
+int	is_order(t_stack *lst)
 {
 	int	old;
+	t_stack	*el;
 
-	old = start->x;
-	start = get_next(lst, start);
-	while (start != end)
+	old = el->x;
+	el = get_next(lst, el);
+	while (el)
 	{
-		if (old > start->x)
+		if (old > el->x)
 			return (0);
-		old = start->x;
-		start = get_next(lst, start);
+		old = el->x;
+		el = get_next(lst, el);
 	}
 	return (1);
 }

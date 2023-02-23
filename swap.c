@@ -39,9 +39,10 @@ void	sb(t_stack **b, int verbose)
 		write(1, "sb\n", 3);
 }
 
-void	ss(t_stack **a, t_stack **b)
+void	ss(t_stack **a, t_stack **b, int verbose)
 {
 	sa(a, 0);
 	sb(b, 0);
-	write(1, "ss\n", 3);
+	if (verbose)
+		write(1, "ss\n", 3);
 }

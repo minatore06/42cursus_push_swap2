@@ -37,7 +37,7 @@ int     to_get_first(t_stack *head, t_stack *el);
 int     first_before_last(t_stack *first, t_stack *last);
 int     lstposition(t_stack *lst, t_stack *el);
 int     get_distance(t_stack *lst, t_stack *first, t_stack *second);
-int 	is_order(t_stack *lst, t_stack *start, t_stack *end);
+int 	is_order(t_stack *lst);
 int		is_number_between(t_stack *lst, t_stack *small, t_stack *big);
 void	sort(t_stack **A, t_stack **B);
 void    put_first(t_stack **stack, t_stack *el, int verbose, int is_a);
@@ -60,13 +60,13 @@ void    pa(t_stack **a, t_stack **b, int verbose);
 void    pb(t_stack **a, t_stack **b, int verbose);
 void    sa(t_stack **a, int verbose);
 void    sb(t_stack **b, int verbose);
-void    ss(t_stack **a, t_stack **b);
+void    ss(t_stack **a, t_stack **b, int verbose);
 void    ra(t_stack **a, int verbose);
 void    rb(t_stack **b, int verbose);
-void    rr(t_stack **a, t_stack **b);
+void    rr(t_stack **a, t_stack **b, int verbose);
 void    rra(t_stack **a, int verbose);
 void    rrb(t_stack **b, int verbose);
-void    rrr(t_stack **a, t_stack **b);
+void    rrr(t_stack **a, t_stack **b, int verbose);
 
 void	print_stack(t_stack *s);
 #endif
