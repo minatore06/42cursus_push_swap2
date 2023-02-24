@@ -29,7 +29,7 @@ void	middle_sort(t_stack **a, t_stack **b, t_stack *start, int count)
 	pa(a, b, 1);
 	pivot->right = 1;
 	divide_et_impera(a, b, pivot);
-	if (is_order(*a, get_smaller(*a)))
+ 	if (is_order(*a, get_smaller(*a)))
 		return ;
 	epic_check(a, b);
 }
@@ -70,8 +70,11 @@ void	epic_check(t_stack **a, t_stack **b)
 			lst = lst->next;
 			while (lst)
 			{
-				if (lst->right)
-				{
+				if (lst->right || !lst->next)
+				{//4 5 2 8 9 10 7
+				//problemi, prima meta' ordinata, seconda tutto ok tranne l'ultimo numero, non parte il sort
+					if (!lst->next)
+						lst = NULL;
 					lst = leftover(a, b, first, lst);
 					break ;
 				}
@@ -92,7 +95,7 @@ void	sort(t_stack **a, t_stack **b)
 	pa(a, b, 1);
 	pivot->right = 1;
 	divide_et_impera(a, b, pivot);
-	if (is_order(*a, get_smaller(*a)))
+ 	if (is_order(*a, get_smaller(*a)))
 		return ;
 	epic_check(a, b);
 }
