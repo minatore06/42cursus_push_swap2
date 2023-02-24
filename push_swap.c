@@ -24,30 +24,6 @@
 	ft_printf("a\n");
 } */
 
-int	ft_abs(int x)
-{
-	if (x < 0)
-		x = -x;
-	return (x);
-}
-
-int	is_order(t_stack *lst)
-{
-	int	old;
-	t_stack	*el;
-
-	old = el->x;
-	el = get_next(lst, el);
-	while (el)
-	{
-		if (old > el->x)
-			return (0);
-		old = el->x;
-		el = get_next(lst, el);
-	}
-	return (1);
-}
-
 void	choose_alg(t_stack **a, t_stack **b)
 {
 	if (ft_lstsize(*a) == 5)
@@ -72,7 +48,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	a.start = get_smaller(a.head);
 	b = 0;
-	choose_alg(&a.head, &b);
+	if (!is_order(a.head, a.start))
+		choose_alg(&a.head, &b);
 	put_first(&a.head, a.start, 1, 1);
 	return (0);
 }

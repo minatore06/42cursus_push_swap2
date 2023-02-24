@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
+int	ft_abs(int x)
+{
+	if (x < 0)
+		x = -x;
+	return (x);
+}
+
 int	first_before_last(t_stack *first, t_stack *last)
 {
 	while (first)

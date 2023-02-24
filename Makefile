@@ -5,7 +5,7 @@ OUT=push_swap
 BONUS_OUT=checker
 
 FILES=push.c swap.c rotate.c r_rotate.c get_pivot.c best_path.c easy_sort.c sort_in_group.c epic_checks.c sorting_core.c get_things.c move_things.c  epic_part.c get_input.c
-BONUS=checker/checker.c
+BONUS=check/checker.c
 OBJECTS=$(FILES:.c=.o)
 BONUS_OBJS=$(BONUS:.c=.o)
 
@@ -31,6 +31,6 @@ fclean: clean
 re:	fclean $(NAME)
 
 bonus: all
-	$(CC) $(CFLAGS) checker.c $(NAME) -o $(BONUS_OUT)
+	$(CC) $(CFLAGS) check/checker.c $(NAME) -o $(BONUS_OUT)
 
 .PHONY:	all clean fclean re

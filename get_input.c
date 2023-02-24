@@ -38,6 +38,7 @@ int	check_err(char *argv, int j, t_stack *input)
 			return (err_manager(3));
 		el = el->next;
 	}
+	return (0);
 }
 
 t_stack	*manage_input(char **argv)

@@ -29,6 +29,8 @@ void	middle_sort(t_stack **a, t_stack **b, t_stack *start, int count)
 	pa(a, b, 1);
 	pivot->right = 1;
 	divide_et_impera(a, b, pivot);
+	if (is_order(*a, get_smaller(*a)))
+		return ;
 	epic_check(a, b);
 }
 
@@ -90,5 +92,7 @@ void	sort(t_stack **a, t_stack **b)
 	pa(a, b, 1);
 	pivot->right = 1;
 	divide_et_impera(a, b, pivot);
+	if (is_order(*a, get_smaller(*a)))
+		return ;
 	epic_check(a, b);
 }

@@ -11,40 +11,36 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-t_stack	*trio_in_group(t_stack **lst, t_stack *trio)
+void	get_small_big(t_stack **lst, t_stack *tri, t_stack **sml, t_stack **bg)
 {
-	t_stack	*bigger;
-	t_stack	*smaller;
-	int		big_pos;
-	int		small_pos;
-
-	put_first(lst, trio, 1, 1);
-	if (trio->x > get_next(*lst, trio)->x)
+	if (tri->x > get_next(*lst, tri)->x)
 	{
-		bigger = trio;
-		smaller = get_next(*lst, trio);
-		if (trio->x > get_next(*lst, get_next(*lst, trio))->x)
+		*bg = tri;
+		*sml = get_next(*lst, tri);
+		if (tri->x > get_next(*lst, *sml)->x)
 		{
-			if (get_next(*lst, trio)->x > get_next(*lst, get_next(*lst, trio))->x)
-				smaller = get_next(*lst, get_next(*lst, trio));
+			if ((*sml)->x > get_next(*lst, *sml)->x)
+				*sml = get_next(*lst, *sml);
 		}
 		else
-			bigger = get_next(*lst, get_next(*lst, trio));
+			*bg = get_next(*lst, *sml);
 	}
 	else
 	{
-		bigger = get_next(*lst, trio);
-		smaller = trio;
-		if (get_next(*lst, trio)->x > get_next(*lst, get_next(*lst, trio))->x)
+		*bg = get_next(*lst, tri);
+		*sml = tri;
+		if ((*bg)->x > get_next(*lst, *bg)->x)
 		{
-			if (trio->x > get_next(*lst, get_next(*lst, trio))->x)
-				smaller = get_next(*lst, get_next(*lst, trio));
+			if (tri->x > get_next(*lst, *bg)->x)
+				*sml = get_next(*lst, *bg);
 		}
 		else
-			bigger = get_next(*lst, get_next(*lst, trio));
+			*bg = get_next(*lst, *bg);
 	}
-	big_pos = lstposition(*lst, bigger);
-	small_pos = lstposition(*lst, smaller);
+}
+
+void	do_the_magic(t_stack **lst, int small_pos, int big_pos)
+{
 	if (big_pos + small_pos == 1)
 	{
 		if (big_pos < small_pos)
@@ -73,6 +69,20 @@ t_stack	*trio_in_group(t_stack **lst, t_stack *trio)
 		}
 		sa(lst, 1);
 	}
+}
+
+t_stack	*trio_in_group(t_stack **lst, t_stack *trio)
+{
+	t_stack	*bigger;
+	t_stack	*smaller;
+	int		big_pos;
+	int		small_pos;
+
+	put_first(lst, trio, 1, 1);
+	get_small_big(lst, trio, &smaller, &bigger);
+	big_pos = lstposition(*lst, bigger);
+	small_pos = lstposition(*lst, smaller);
+	do_the_magic(lst, small_pos, big_pos);
 	smaller->right = 1;
 	get_next(*lst, smaller)->right = 1;
 	get_next(*lst, get_next(*lst, smaller))->right = 1;

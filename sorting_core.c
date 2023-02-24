@@ -11,6 +11,23 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
+int	is_order(t_stack *lst, t_stack *start)
+{
+	int		old;
+	t_stack	*el;
+
+	old = start->x;
+	el = get_next(lst, start);
+	while (el && el != start)
+	{
+		if (old > el->x)
+			return (0);
+		old = el->x;
+		el = get_next(lst, el);
+	}
+	return (1);
+}
+
 void	divide_et_impera(t_stack **a, t_stack **b, t_stack *pivot)
 {
 	while (1)
@@ -35,6 +52,5 @@ void	divide_et_impera(t_stack **a, t_stack **b, t_stack *pivot)
 		}
 		pivot = get_pivot(*b, get_smaller(*b), get_bigger(*b));
 		move_largers(a, b, pivot, 1);
-		print_stack(*a);
 	}
 }
