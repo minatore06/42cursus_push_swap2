@@ -26,6 +26,8 @@ int	first_before_last(t_stack *first, t_stack *last)
 			return (1);
 		first = first->next;
 	}
+	if (first == last)
+		return (1);
 	return (0);
 }
 

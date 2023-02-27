@@ -38,7 +38,8 @@ t_stack	*leftover(t_stack **a, t_stack **b, t_stack *first, t_stack *second)
 {
 	int		distance;
 
-	second = consecutive_numbers(*a, second, 1);
+	if (second)
+		second = consecutive_numbers(*a, second, 1);
 	distance = get_distance(*a, first, second);
 	if (distance == 1)
 		alone_numbers(get_next(*a, first));
@@ -70,12 +71,14 @@ void	epic_check(t_stack **a, t_stack **b)
 			lst = lst->next;
 			while (lst)
 			{
-				if (lst->right || !lst->next)
+				if (!lst->next || lst->right)
 				{//4 5 2 8 9 10 7
 				//problemi, prima meta' ordinata, seconda tutto ok tranne l'ultimo numero, non parte il sort
-					if (!lst->next)
+ 					if (!lst->next && !lst->right)
 						lst = NULL;
 					lst = leftover(a, b, first, lst);
+					if (!lst)
+						lst = bfrthis(*a, lst);
 					break ;
 				}
 				lst = lst->next;
