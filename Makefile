@@ -1,11 +1,10 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
-NAME=push_swap.a
-OUT=push_swap
-BONUS_OUT=checker
+NAME=push_swap
+CHECK_NAME=checker
 
-FILES=push.c swap.c rotate.c r_rotate.c get_pivot.c best_path.c easy_sort.c trio_in_group.c four_in_group.c five_in_group.c epic_checks.c sorting_core.c get_things.c move_things.c  epic_part.c get_input.c
-BONUS=check/checker.c
+FILES=push_swap.c push.c swap.c rotate.c r_rotate.c get_pivot.c check_order.c best_path.c easy_sort.c trio_in_group.c four_in_group.c five_in_group.c epic_checks.c sorting_core.c get_things.c move_things.c  epic_part.c get_input.c free_stack.c
+BONUS=check/learn_and_do.c check/checker.c push.c swap.c rotate.c r_rotate.c get_input.c check_order.c free_stack.c
 OBJECTS=$(FILES:.c=.o)
 BONUS_OBJS=$(BONUS:.c=.o)
 
@@ -16,21 +15,20 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	$(MAKE) bonus -C $(LIBFT)
-	mv $(LIBFT)$(LIBFTNAME) $(NAME)
-	ar rcs $(NAME) $(OBJECTS)
-	$(CC) $(CFLAGS) push_swap.c $(NAME) -o $(OUT)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT)$(LIBFTNAME) -o $(NAME)
 
 clean:
-	rm -f $(OBJECTS) $(BONUS_OBJECTS)
 	$(MAKE) clean -C $(LIBFT)
+	rm -f $(OBJECTS) $(BONUS_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(LIBFT)$(LIBFTNAME)
+	$(MAKE) fclean -C $(LIBFT)
+	rm -f $(NAME) $(CHECK_NAME)
 
 re:	fclean $(NAME)
 
-bonus: all
-	$(CC) $(CFLAGS) check/checker.c $(NAME) -o $(BONUS_OUT)
+bonus: $(BONUS_OBJS)
+	$(MAKE) bonus -C $(LIBFT)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT)$(LIBFTNAME) -o $(CHECK_NAME)
 
 .PHONY:	all clean fclean re

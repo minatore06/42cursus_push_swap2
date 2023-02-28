@@ -11,13 +11,6 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-t_stack	*get_next(t_stack *a, t_stack *el)
-{
-	if (el->next)
-		return (el->next);
-	return (a);
-}
-
 int	get_distance(t_stack *lst, t_stack *first, t_stack *second)
 {
 	int	i;

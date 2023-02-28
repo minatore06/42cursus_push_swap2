@@ -29,7 +29,7 @@ void	middle_sort(t_stack **a, t_stack **b, t_stack *start, int count)
 	pa(a, b, 1);
 	pivot->right = 1;
 	divide_et_impera(a, b, pivot);
- 	if (is_order(*a, get_smaller(*a)))
+	if (is_order(*a, get_smaller(*a)))
 		return ;
 	epic_check(a, b);
 }
@@ -38,6 +38,8 @@ t_stack	*leftover(t_stack **a, t_stack **b, t_stack *first, t_stack *second)
 {
 	int		distance;
 
+	if (!second->right && !second->next)
+		second = NULL;
 	if (second)
 		second = consecutive_numbers(*a, second, 1);
 	distance = get_distance(*a, first, second);
@@ -53,6 +55,8 @@ t_stack	*leftover(t_stack **a, t_stack **b, t_stack *first, t_stack *second)
 		five_in_group(a, b, get_next(*a, first));
 	else if (distance > 5)
 		middle_sort(a, b, first, distance);
+	if (!second)
+		return (bfrthis(*a, second));
 	return (second);
 }
 
@@ -72,13 +76,8 @@ void	epic_check(t_stack **a, t_stack **b)
 			while (lst)
 			{
 				if (!lst->next || lst->right)
-				{//4 5 2 8 9 10 7
-				//problemi, prima meta' ordinata, seconda tutto ok tranne l'ultimo numero, non parte il sort
- 					if (!lst->next && !lst->right)
-						lst = NULL;
+				{
 					lst = leftover(a, b, first, lst);
-					if (!lst)
-						lst = bfrthis(*a, lst);
 					break ;
 				}
 				lst = lst->next;
@@ -98,7 +97,7 @@ void	sort(t_stack **a, t_stack **b)
 	pa(a, b, 1);
 	pivot->right = 1;
 	divide_et_impera(a, b, pivot);
- 	if (is_order(*a, get_smaller(*a)))
+	if (is_order(*a, get_smaller(*a)))
 		return ;
 	epic_check(a, b);
 }

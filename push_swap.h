@@ -39,6 +39,8 @@ int     lstposition(t_stack *lst, t_stack *el);
 int     get_distance(t_stack *lst, t_stack *first, t_stack *second);
 int 	is_order(t_stack *lst, t_stack *start);
 int		is_number_between(t_stack *lst, t_stack *small, t_stack *big);
+void	free_stack(t_stack *stack);
+void	free_arr(char **arr);
 void	sort(t_stack **A, t_stack **B);
 void    put_first(t_stack **stack, t_stack *el, int verbose, int is_a);
 void	move_to_b(t_stack **A, t_stack **B, t_stack *el, int verbose);

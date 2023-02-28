@@ -51,5 +51,6 @@ int	main(int argc, char *argv[])
 	if (!is_order(a.head, a.start))
 		choose_alg(&a.head, &b);
 	put_first(&a.head, a.start, 1, 1);
+	free_stack(a.head);
 	return (0);
 }
