@@ -52,9 +52,9 @@ char	*get_next_line(int fd);
 
 typedef struct s_stack
 {
-	int	x;
+	int		x;
 	void	*next;
-	int	right;
+	int		right;
 }	t_stack;
 
 int		ft_lstsize(t_stack *lst);

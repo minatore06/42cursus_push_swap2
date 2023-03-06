@@ -38,7 +38,9 @@ t_stack	*get_pivot(t_stack *lst, t_stack *small, t_stack *big)
 	t_stack	*pivot;
 
 	med = (small->x + big->x) / 2;
-	distance = med * 2;
+	distance = ft_abs(med - lst->x);
+	pivot = lst;
+	lst = lst->next;
 	while (lst)
 	{
 		if (ft_abs(med - lst->x) < distance)

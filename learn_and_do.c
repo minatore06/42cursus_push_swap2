@@ -47,19 +47,19 @@ int	choose_instruction2(char *instr, t_stack **a, t_stack **b)
 	return (0);
 }
 
-int	choose_instruction(char **instrs, char *instr, t_stack **a, t_stack **b)
+int	choose_instruction(char **insts, char *inst, t_stack **a, t_stack **b)
 {
 	int	err;
 
 	err = 1;
-	if (!ft_strncmp(instr, "p", 1) || !ft_strncmp(instr, "s", 1))
-		err = choose_instruction1(instr, a, b);
-	else if (!ft_strncmp(instr, "r", 1))
-		err = choose_instruction2(instr, a, b);
+	if (!ft_strncmp(inst, "p", 1) || !ft_strncmp(inst, "s", 1))
+		err = choose_instruction1(inst, a, b);
+	else if (!ft_strncmp(inst, "r", 1))
+		err = choose_instruction2(inst, a, b);
 	if (err)
 	{
 		write(2, "Error\n", 6);
-		free_arr(instrs);
+		free_arr(insts);
 		return (1);
 	}
 	return (0);
