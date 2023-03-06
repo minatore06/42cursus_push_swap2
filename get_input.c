@@ -48,7 +48,6 @@ t_stack	*one_input(char **argv)
 	int		i;
 	int		j;
 
-	argv = ft_split(argv[1], ' ');
 	input = 0;
 	i = 0;
 	while (argv[i])
@@ -81,7 +80,7 @@ t_stack	*manage_input(char **argv)
 	input = 0;
 	i = 1;
 	if (!argv[2])
-		return (one_input(argv));
+		return (one_input(ft_split(argv[1], ' ')));
 	while (argv[i])
 	{
 		j = 0;

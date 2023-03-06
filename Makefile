@@ -4,7 +4,7 @@ NAME=push_swap
 CHECK_NAME=checker
 
 FILES=push_swap.c push.c swap.c rotate.c r_rotate.c get_pivot.c check_order.c best_path.c easy_sort.c trio_in_group.c four_in_group.c five_in_group.c epic_checks.c sorting_core.c get_things.c move_things.c  epic_part.c get_input.c free_stack.c
-BONUS=check/learn_and_do.c check/checker.c push.c swap.c rotate.c r_rotate.c get_input.c check_order.c free_stack.c
+BONUS=learn_and_do.c checker.c push.c swap.c rotate.c r_rotate.c get_input.c check_order.c free_stack.c
 OBJECTS=$(FILES:.c=.o)
 BONUS_OBJS=$(BONUS:.c=.o)
 
