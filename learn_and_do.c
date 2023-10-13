@@ -52,6 +52,8 @@ int	choose_instruction(char **insts, char *inst, t_stack **a, t_stack **b)
 	int	err;
 
 	err = 1;
+	if (!ft_strncmp(inst, "", 1))
+		return (0);
 	if (!ft_strncmp(inst, "p", 1) || !ft_strncmp(inst, "s", 1))
 		err = choose_instruction1(inst, a, b);
 	else if (!ft_strncmp(inst, "r", 1))
